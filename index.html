@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>PM Sys project management system</title>
+    <meta name="Description">
+    <meta name="Keywords" content="pm sys">
+    <meta name="Robots" content="index, follow">
+    <meta name="Googlebot" content="index, follow">
+    <meta name="Revisit-After" content="1 day">
+    <meta name="Rating" content="general">
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <!-- crypts -->
+    <script type="text/javascript" src="/libs/sha256.js"></script>
+    <script type="text/javascript" src="/libs/json-min.js"></script>
+    <script type="text/javascript" src="/libs/purl.js"></script>
+    <!-- PM Sys core -->
+    <script type="text/javascript" src="/libs/pmsys/json-bridje-client.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/documentOutSide.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/documentSys.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/documentApp.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/document.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/documentEx.js"></script>
+    <script type="text/javascript" src="/libs/pmsys/app.js"></script>
+    <!-- others -->
+    <script type="text/javascript" src="/libs/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="/libs/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/libs/jquery.datepick.js"></script>
+    <script type="text/javascript" src="/libs/date.format.js"></script>
+    <script type="text/javascript" src="/libs/jquery.form.js"></script>
+    <script type="text/javascript" src="/libs/dropMenu.js"></script>
+    <script type="text/javascript" src="/libs/jquery.youtubepopup.min.js"></script>
+    <!-- lightbox -->
+    <script type="text/javascript" src="lightbox/js/jquery.lightbox-0.5.js"></script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/pm-styles.css" />
+    <link rel="stylesheet" href="/css/pm-contact.css" />
+    <link rel="stylesheet" type="text/css" href="lightbox/css/jquery.lightbox-0.5.css"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/menuh.css">
+    <link rel="stylesheet" href="/css/buttons.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.1.custom.css" type="text/css" />
+    <link rel="stylesheet" href="/css/jquery.datepick.css" type="text/css" />
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/libs/fancyapps/jquery.mousewheel-3.0.6.pack.js"></script>
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/libs/fancyapps/jquery.fancybox.js?v=2.1.3"></script>
+    <link rel="stylesheet" type="text/css" href="/libs/fancyapps/jquery.fancybox.css?v=2.1.2"
+        media="screen" />
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/libs/fancyapps/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+    <script type="text/javascript" src="/libs/fancyapps/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/libs/fancyapps/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+    <script type="text/javascript" src="/libs/fancyapps/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/libs/fancyapps/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+    <script type="text/javascript" src="/libs/fancyapps/fancybox.js"></script>
+    <link rel="SHORTCUT ICON" href="/logos/pmsys.png" />
+</head>
+<body>
+    <div id="Wrapper">
+        <!-- Page Header -->
+        <header id="MainHeader">
+			
+            <span>
+				Our mission is to help organizations to manage their projects. <br/>
+				Project management can be easier with PM Sys.<br/>
+				Stay connected and in control of Projects from Anywhere!<br/>				
+			</span>    
+			
+        </header>
+        <!-- Page Header -->
+        <!-- Page Main Nav -->
+        <nav>					
+			 <!-- show header menu for user -->
+            <span id="headerMenu"></span>	
+					
+        </nav>
+        <!-- Page Main Nav -->
+        <div id="MainContainer">
+            <div id="MainFrame">
+                <span>
+                    <img src="/images/my-logo.png" /></span>
+                <h1>
+                    Organize your tasks</h1>
+                <p>
+                    Project tasks and tasklists make it easy to keep your work items organized and manageable,
+                    all in one centralized and easy-to-access location. You can monitor the status of
+                    tasks, assign tasks to members.
+                </p>
+                <h1>
+                    Fix bugs fast</h1>
+                <p>
+                    PM Sys Bug Tracking module helps you submit, track and fix the bugs and issues that
+                    software projects are bound to generate. The Bug Tracking module allows administrators
+                    to configure the workflow and permissions for bug submission and changes to the
+                    status and details of reported bugs.
+                </p>
+                <h1>
+                    Reports</h1>
+                <p>
+                    Reports provides a consolidated view of all your open and closed tasks, tasklist
+                    and milestones of a project.
+                </p>
+            </div>
+            <section id="MainContent"> 			
+				<article>
+					<div id="filter-box"></div>					
+					<div id="containerSite"></div>  
+					<div id="containerContent"></div>
+				</article>
+								
+          </section>
+        </div>
+        <footer id="MainFooter">	
+			
+            <section class="footerLinkContainerWrapper">  
+
+                    <div class="footerLinkContainer">
+                        <h4><a href="#pm-about"  title="About US">About US</a></h4>
+                        <ul>
+                                <li><a href="#pm-about"  title="About Us">About</a></li>                                
+                                <li><a href="#pm-gallery" title="pm-gallery">Gallery</a></li>                                
+                                <li><a href="http://pmsysmehmedov.blogspot.com/" target="_blank" title="Blog">Blog</a></li>
+                                <li><a href="#pm-contact"  title="Contact">Contact</a></li>
+								<li><a style="color: red;" class="fancybox-media" href="https://vimeo.com/54639670">Watch Video</a></li>
+						</ul>
+                    </div>
+					
+					<div class="footerLinkContainer">
+                        <h4><a href="http://pmsys.org/#"  title="For Developers">For Developers</a></h4>
+                        <ul>
+                                <li><a href="https://github.com/halachev/pmsys" target="_blank" title="github">github</a></li>                                
+                                <li><a href="http://pm-sys.googlecode.com/svn/" target="_blank" title="svn">svn</a></li>
+                                <li><a href="#pm-howitworks"  title="how-it-works">how-it-works</a></li>
+								<li><a href="https://groups.google.com/forum/#!forum/pm_sys" target="_blank" title="Support">Support</a></li>
+								<li><a href="#pm-watch"  title="pm-watch">Watch</a></li>
+                        </ul>
+                    </div>
+					
+					<div class="footerLinkContainer">
+                        <h4><a href="http://pmsys.org/#"  title="For Developers">Other</a></h4>
+                        <ul>
+                                <li><a href="#pm-friends"  title="friends">friends</a></li>                                
+                                <li><a href="#pm-join-us"  title="Join Us">Join Us</a></li>
+                                <li><a href="#pm-partner"  title="Partners">Partners</a></li>
+								<li><a href="#pm-customers"  title="Customers">Customers</a></li>
+							    <li><a href="#pm-recentProjects"  title="pm-recentProjects">Recent Projects</a></li>
+                   
+						</ul>
+						
+                    </div>
+					
+                    
+            </section>
+			<div class="clear"</div>
+			
+            <section id="FooterBar">
+				
+                <div class="left">
+                    <p>All right reserved © PM Sys 2012</p>   		
+                </div>
+				
+                <ul id="SocialNetworks" class="right">
+                    <li><a href="http://www.facebook.com/pmsys.org" target="_blank">
+                        <img src="/logos/facebook-icon.png" width="35" height="35" alt="Facebook icon image"></a></li>
+                    <li><a href="https://twitter.com/pmsys2" target="_blank" >
+                        <img src="/logos/twitter-icon.png" width="35" height="35" alt="Twitter icon image"></a></li>
+                    <li><a href="https://plus.google.com/u/0/100784977831133740098/posts" target="_blank" >
+                        <img src="/logos/google-plus-icon.png" width="35" height="35" alt="Google icon image"></a></li>
+                    <li><a href="http://www.linkedin.com/pub/nurietin-mehmedov/3b/825/828" target="_blank">
+                        <img src="/logos/linked-in-icon.png" width="35" height="35" alt="LinkedIn icon image"></a></li>
+                </ul>
+				
+            </section>
+			
+			<!-- CQ Counter code start -->
+			<section>
+				<div class="left">				
+					<script type="text/javascript" language="javascript"><!--
+					    _d = document; _n = navigator; _t = new Date(); function t() {
+					        _d.write(
+					"<img src=\"http://bg.2.cqcounter.com/cgi-bin/c?_id=pmsys&_z=0&_r=" +
+					_r + "&_c=" + _c + "&_j=" + _j + "&_t=" + (_t.getTimezoneOffset()) + "&_k=" + _k +
+					"&_l=" + escape(_d.referrer) + "\" width=70 height=15 " +
+					"border=0>");
+					    } _c = "0"; _r = "0"; _j = "U"; _k = "U"; _d.cookie = "_c=y";
+					    _d.cookie.length > 0 ? _k = "Y" : _k = "N";//--></script>
+					<script type="text/javascript" language="javascript1.2"><!--
+					    _n.javaEnabled() ? _j = "Y" : _j = "N"; _b = screen; _r = _b.width;
+					    _n.appName != "Netscape" ? _c = _b.colorDepth : _c = _b.pixelDepth;//--></script>
+					<a title="Free Counter" href="http://cqcounter.com/?_id=pmsys&_lo=bg2" 
+					target="_top"><script type="text/javascript" language="javascript"><!--
+					                  t(); //--></script></a><noscript><img width="70" height="15" border="0" 
+					alt="Counter" src="http://bg.2.cqcounter.com/cgi-bin/c?_id=pmsys&_z=0"><br>
+					<a title="Web Counter" href="http://cqcounter.com/">Hit Counter</a></noscript>
+					<!-- CQ Counter code end -->
+           				
+					</div>	
+					
+			</section>
+        </footer>
+    </div>
+    <body>
+        <html>

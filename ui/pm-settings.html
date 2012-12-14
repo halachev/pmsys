@@ -1,0 +1,37 @@
+<div class="pm-style-box">
+<h1>Settings</h1>
+<span id="changePassword"></span>
+</div>
+	
+        <script type="text/javascript">
+            $(function() {
+			   
+			   $('#filter-box').hide();  
+			   $('#containerContent').hide();
+				
+			   $('#MainFrame').hide();
+                
+                 var currUser = system.currUser();
+                
+                   $('#changePassword').html('<div id="featured" class="clearfix grid_12"><div class="grid_12 caption clearfix"><p><b>username: </b>' 
+                        + currUser.username + '<br/>' + ' <b>Position: </b>' 
+                        + currUser.positionAsText + '<br/>' + '<b>Email: </b>' 
+                        + currUser.email + '<br/>' + '<b>Organization: </b>' 
+                        + currUser.organizationAsText + '<br/>' + '<b>Secret Code: </b>' 
+                        + currUser.secret_code + '</p>' + '<p><input type="button" class="changePassword" docid="' 
+                        + currUser._id + '" value="Change password" />' + ' <input type="button"  class="delUser" data-identity="' 
+                        + currUser._id + '"  value="Remove user" /></p>');
+                    
+
+                    $('.changePassword').bind('click', function(e) {
+
+                        $.get('/ui/pm-change-password.html', function(login_data) {
+                            $('#containerSite').html(login_data);
+
+                        });
+
+                    });
+        
+            }); 
+        </script>
+

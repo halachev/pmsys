@@ -1,0 +1,101 @@
+<script type="text/javascript">
+    $(function() {
+		
+        $.alert('Sign in', '<p>Some areas of our web site are <br/> available only to registered users.</p>' 
+		+ '<form id="login_form" onsubmit="return false"> ' 
+		+ '<label for="l_username">*Username:</label><br/>' 
+		+ '<input type="text" id="l_username" title="Enter username" /> <br/>'
+		+ '<label for="l_password">*Password:</label> <br/>' 
+		+ '<input type="password" id="l_password" title="Enter password"/> <br/>' 
+		+ '<input type="submit" id="btnLogin" value="Sign in" />' 
+		+ '<br/><br/><input type="button" id="canForgotPass" value="forgot password?" />' 
+		+ '<div id="Imgprogress"></div>' 
+		+ '<div style="display: none" id="DivforgotPass">Email: <br/>' 
+		+ '<input type="text" id="emailAddress" value="">' 
+		+ '<input type="button" id="btnForgotPass" value="Send" />' 
+		+ '<div id="emailMessage" class="Canceled"></div>' + '</div>' 
+		+ '<div style="color: red" id="resposne_message"></div>' 
+		+ '</form>', false);
+
+        $('#canForgotPass').click(function() {
+            $('#DivforgotPass').show('slow');
+
+        });
+
+        $('#btnForgotPass').click(function() {
+
+            if (!model.emailValidation($('#emailAddress').val())) {
+                $('#emailMessage').html('Email address is not valid');
+                return false;
+            }
+
+            $('#Imgprogress').html(app.ui.loader);
+            $('#emailMessage').html('');
+            JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewByEmail?key="' + $('#emailAddress').val() + '"'], function(response) {
+
+                var data = JSON.parse(response.result);
+
+                if (data.rows == "") {
+                    $('#emailMessage').html('Email address was not found');
+                    $('#Imgprogress').html("");
+                    return;
+
+                }
+
+                var user = data.rows[0].value;
+
+                var fromAddress = "pmsystem.mehmedov@gmail.com";
+                var toAddress = $('#emailAddress').val()
+                var subject = "PMsystem - forgot password!";
+
+                var body = '<html><body>Dear customers you lost your PMSys password: <br/>';
+                body += 'username: ' + user.username;
+                body += '<br/>password:  ' + user.password;
+                body += '<br/>Thanks,The PMSys Team </html></body>';
+
+                var params = [fromAddress, toAddress, subject, body, '', '', '', false];
+
+                JsonBridge.execute('MailService.MailService', 'SendMail', params, function() {
+
+                    $('#emailMessage').html('Check your email address');
+                    $('#Imgprogress').html("");
+                    return false;
+                });
+
+            });
+
+        });
+
+        $('#btnLogin').click(function(event) {
+
+            $('#resposne_message').html(app.ui.loader);
+            event.stopImmediatePropagation();
+
+            if (($('#l_username').val() == '') || ($('#l_password').val() == '')) {
+                $('#resposne_message').html('Both Username and Password <br/> required to access PMSystem');
+                return;
+            }
+
+            JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewByName?key="' + $('#l_username').val() + '"'], function(e_s) {
+
+                var data = JSON.parse(e_s.result);
+                if (data.rows == "") {
+                    $('#resposne_message').html('User does not exist - PMSystem');
+                    return;
+                }
+
+                var user = data.rows[0].value;
+
+                if ((user.username == $('#l_username').val()) && (user.password == $('#l_password').val())) {
+
+                    $.cookie('user.Id', user._id);
+                    $.alert('Access ', $('#l_username').val() + ' Welcome to PMSystem', true);
+                } else
+                    $('#resposne_message').html('Username and Password <br/> is not valid to access PMSystem');
+
+            });
+
+        });
+
+    }); 
+</script>
