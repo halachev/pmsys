@@ -18,6 +18,11 @@ body
     color: #2d2d2d;
 }
 
+
+li{
+	list-style: none;	
+}
+
 p
 {
     padding: 0px;
@@ -389,45 +394,3 @@ table th
     
 }
 
-li{
-	list-style: none;	
-}
-
-
-.ellipse{
-	float: left;
-}
-
-.container{
-	width: 980px;
-	float: left;	
-	padding: 10px;
-	
-}
-
-.page_navigation , .alt_page_navigation{
-	padding-bottom: 10px;
-}
-
-.page_navigation a, .alt_page_navigation a{
-	padding:3px 5px;
-	margin:2px;
-	color:white;
-	text-decoration:none;
-	float: left;
-	font-family: Tahoma;
-	font-size: 12px;
-	background-color:#DB5C04;
-}
-.active_page{
-	background-color:white !important;
-	color:black !important;
-}	
-
-.content, .alt_content{
-	color: black;
-}
-
-.content li, .alt_content li, .content > p{
-	padding: 5px
-}

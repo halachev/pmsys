@@ -2,7 +2,8 @@
 </div>
 <button style="float: left; margin: 20px;" type="button" id="btnShowModalForm">
 </button>
-<script type="text/javascript">    $(function () {
+<script type="text/javascript">    
+$(function () {
         var file = new model.file();
         var consts = new model.consts();
         var currUser = system.currUser();
@@ -22,7 +23,7 @@
                 model.ShowModalForm(element);
             })
         }
-        model.documents($('#containerContent'), _docType);
+        model.documents($('#containerContent'), _docType, false);
         $("#DateFrom").datepick({
             showTrigger: '#calImg'
         });
@@ -33,7 +34,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() <= 0) {
-                model.documents($('#containerContent'), _docType);
+                model.documents($('#containerContent'), _docType, false);
             } else {
                 var docFilter = new model.documentFilter();
                 docFilter.docType = _docType;
@@ -57,7 +58,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() <= 0) {
-                model.documents($('#containerContent'), _docType);
+                model.documents($('#containerContent'), _docType, false);
             } else {
                 var consts = new model.consts();
                 var docFilter = new model.documentFilter();
@@ -71,7 +72,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() < 0) {
-                model.documents($('#containerContent'), _docType);
+                model.documents($('#containerContent'), _docType, false);
             } else {
                 var consts = new model.consts();
                 var docFilter = new model.documentFilter();

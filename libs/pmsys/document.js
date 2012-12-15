@@ -448,25 +448,23 @@ var model = {
             _Html.html(html);
             $('#process_loading').html('');
         });
-
-
-
     },
 
     documentHtml: function (_data) {
 
         var data = JSON.parse(_data.result);
 		
-		
-         styles = new Array('even-row', 'odd-row');
+        var html = '<table width="100%" cellspacing="0" cellpadding="1">';
+        styles = new Array('even-row', 'odd-row');
 			
-      
-		var html = "";		
-	    html += '<div id="paging_container" class="container">';			
-		html += '<h4 id="per_page"><a href=#>10 page paging per page</a></h4>';		
-		html += '<div class="page_navigation"></div><br/>';	
-				
-		
+        html += '<tr>' +
+                    '<th>Name</th>' +
+                    '<th>Date</th>' +
+                    '<th>Image</th>' +
+                    '<th>Status</th>' +
+                    '<th>Actions</th>' +
+                '</tr>';
+
         var consts = new model.consts();
         var currUser = system.currUser();
 
@@ -479,7 +477,7 @@ var model = {
             if (currUser.position == consts.admin) {
 
                 actions =
-                '<div><a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
+                '<div style="padding: 10px;"><a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
                 '<a href=#canCopyDocument data-identity=' + document._id + '><img src="menu-icons/copy.png" /></a> ' +
                 '<a href=#canDelDocument data-identity=' + document._id + '><img src="menu-icons/del.png" /></a></div>';
 
@@ -536,33 +534,56 @@ var model = {
 
 
                 //                }
-
-
-
-                var image = '';
-                if (document.image != "") {
-                    image = '<a href ="' + document.image + '"  target="_blank">'
-                    image += '<img src ="' + document.image + '"  width="75"  /></a>';
-                }
-
+				
+				if (document.image != "") {
+					image = '<a href ="' + document.image + '"  target="_blank">'
+					image += '<img src ="' + document.image + '"  width="75"  /></a>';
+				}
+		
                 var currStyle = styles[i % 2];
 				
-				html += '<ul class="content">';						
-               
-				html += '<li class=' + currStyle + '><p><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
+				var currObj = {
+					document: document, 
+					image: image,
+					currStyle: currStyle,
+					txtState: txtState,
+					status: status,
+					actions: actions
+				};
+				
+				html += model.documentTableView(currObj);
+				
+				
+            }
+        }
+
+        html += '</table>';
+
+        return html;
+
+    },
+	
+	documentTableView: function (currObj) {
+		var html = "";
+		var document = currObj.document;
+		var image = currObj.image;
+		
+		html +=
+                '<li><tr class=' + currObj.currStyle + '>' +
+                '<td><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
             
                 //hide div elemtn with description
-                '<div class="table-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '<br/>' +
+                '<div class="table-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '</td>' +
 
-                '<br/>' + document.date + '<br/>' +
-                        '<br/>' + image + '<br/>' +
+                '<td>' + document.date + '</td>' +
+                        '<td>' + image + '</td>' +
 
-                         '<br/><strong>Time limit: </strong>' + document.timelimit + '<br/>' +
+                         '<td><strong>Time limit: </strong>' + document.timelimit + '<br/>' +
                          '<strong>Created by: </strong> ' + document.created + '<br/>' +
                          '<div><strong>Assigned to: </strong>' + document.assignedTo + '<br/>' +
-                         '<div><strong>Status: </strong>' + status + txtState + '<br/>' +
+                         '<div><strong>Status: </strong>' + currObj.status + currObj.txtState + '</td>' +
 
-                         '<br/>' +
+                         '<td>' +
                          '<div id="document">' +
                          '<select id="doc_state">' +
                              '<option value="-1">-Select-</option>' +
@@ -572,20 +593,14 @@ var model = {
                              '<option value="3">Deferred</option>' +
                              '<option value="4">Detached</option>' +
                          '</select>' +
-                         '<input type="button" class="btnState" value="Apply" disabled=disable>' + actions +
-                         '<input type="hidden" class="docId" value=' + document._id + ' /></div>';
+                         '<input type="button" class="btnState" value="Apply" disabled=disable>' + currObj.actions +
+                         '<input type="hidden" class="docId" value=' + document._id + ' /></td></div></tr>';
 
-				html += '</li></ul><br/>';
-				
-				
-            }
-        }
-
-       
-        return html;
-
-    },
-
+             return html;
+		
+	
+	},
+		
     document_state: function () {
 
         var selectedState;
