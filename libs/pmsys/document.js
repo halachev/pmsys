@@ -456,18 +456,17 @@ var model = {
     documentHtml: function (_data) {
 
         var data = JSON.parse(_data.result);
-
-        var html = '<table width="100%" cellspacing="0" cellpadding="1">';
-        styles = new Array('even-row', 'odd-row');
-
-        html += '<tr>' +
-                    '<th>Name</th>' +
-                    '<th>Date</th>' +
-                    '<th>Image</th>' +
-                    '<th>Status</th>' +
-                    '<th>Actions</th>' +
-                '</tr>';
-
+		
+		
+         styles = new Array('even-row', 'odd-row');
+			
+      
+		var html = "";		
+	    html += '<div id="paging_container" class="container">';			
+		html += '<h4 id="per_page"><a href=#>10 page paging per page</a></h4>';		
+		html += '<div class="page_navigation"></div><br/>';	
+				
+		
         var consts = new model.consts();
         var currUser = system.currUser();
 
@@ -480,7 +479,7 @@ var model = {
             if (currUser.position == consts.admin) {
 
                 actions =
-                '<div style="padding: 10px;"><a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
+                '<div><a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
                 '<a href=#canCopyDocument data-identity=' + document._id + '><img src="menu-icons/copy.png" /></a> ' +
                 '<a href=#canDelDocument data-identity=' + document._id + '><img src="menu-icons/del.png" /></a></div>';
 
@@ -547,23 +546,23 @@ var model = {
                 }
 
                 var currStyle = styles[i % 2];
-
-                html +=
-                '<tr class=' + currStyle + '>' +
-                '<td><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
+				
+				html += '<ul class="content">';						
+               
+				html += '<li class=' + currStyle + '><p><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
             
                 //hide div elemtn with description
-                '<div class="table-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '</td>' +
+                '<div class="table-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '<br/>' +
 
-                '<td>' + document.date + '</td>' +
-                        '<td>' + image + '</td>' +
+                '<br/>' + document.date + '<br/>' +
+                        '<br/>' + image + '<br/>' +
 
-                         '<td><strong>Time limit: </strong>' + document.timelimit + '<br/>' +
+                         '<br/><strong>Time limit: </strong>' + document.timelimit + '<br/>' +
                          '<strong>Created by: </strong> ' + document.created + '<br/>' +
                          '<div><strong>Assigned to: </strong>' + document.assignedTo + '<br/>' +
-                         '<div><strong>Status: </strong>' + status + txtState + '</td>' +
+                         '<div><strong>Status: </strong>' + status + txtState + '<br/>' +
 
-                         '<td>' +
+                         '<br/>' +
                          '<div id="document">' +
                          '<select id="doc_state">' +
                              '<option value="-1">-Select-</option>' +
@@ -574,16 +573,15 @@ var model = {
                              '<option value="4">Detached</option>' +
                          '</select>' +
                          '<input type="button" class="btnState" value="Apply" disabled=disable>' + actions +
-                         '<input type="hidden" class="docId" value=' + document._id + ' /></td></div>';
+                         '<input type="hidden" class="docId" value=' + document._id + ' /></div>';
 
-                '</tr>';
-
-
+				html += '</li></ul><br/>';
+				
+				
             }
         }
 
-        html += '</table>';
-
+       
         return html;
 
     },
