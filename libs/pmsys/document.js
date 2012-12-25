@@ -456,7 +456,7 @@ var model = {
 		
         var data = JSON.parse(_data.result);
 		
-        var html = '<table width="100%" cellspacing="0" cellpadding="1">';
+        var html = '<table width="100%" cellspacing="0" cellpadding="0">';
         styles = new Array('even-row', 'odd-row');
 			
         html += '<tr>' +
@@ -475,21 +475,20 @@ var model = {
             var document = data.rows[i].value;
 			
             var actions = '';
-
             if (currUser.position == consts.admin) {
 
                 actions =
-                '<div style="padding: 10px;"><a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
-                '<a href=#canCopyDocument data-identity=' + document._id + '><img src="menu-icons/copy.png" /></a> ' +
-                '<a href=#canDelDocument data-identity=' + document._id + '><img src="menu-icons/del.png" /></a></div>';
+                '<div style="padding: 10px;">' + 
+					'<a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
+					'<a href=#canCopyDocument data-identity=' + document._id + '><img src="menu-icons/copy.png" /></a> ' +
+					'<a href=#canDelDocument data-identity=' + document._id + '><img src="menu-icons/del.png" /></a>' + 
+				'</div>';
 
             }
 
             if ((document.userId == currUser._id)
 				|| (document.organizationId == currUser.organization)
 				&& (currUser.position == consts.admin)) {
-
-
                 
                 var txtState = '';
                 var status = '';
@@ -511,35 +510,9 @@ var model = {
                     status = '<img src="/menu-icons/Detached.png" />';
                 }
 
-
-                //                //get all attachments for a moment we have only one ...
-
-                //                for (var filename in document._attachments) {
-
-                //                    var params = ['pmsystem', document._id, filename];
-
-
-
-                //                    JsonBridge.execute('WDK.API.CouchDb', 'getInlineAttachment', params, function (response) {
-
-
-                //                        var bytes = response.result.ContentBytes;
-                //                        if (bytes != "") {
-
-
-                //                            $('#imageurl').attr('href', "data:image/jpg;base64," + bytes);
-                //                            $('#userImage').attr('src', "data:image/jpg;base64," + bytes);
-                //                        }
-
-
-                //                    });
-
-
-                //                }
-				
-				var image = '';
+				var image = 'No Image';
 				if (document.image == true) {					
-					image = '<a id="test" href=#canShowImage data-identity=' + document._id + '>View Image</a>';
+					image = '<a href=#canShowImage data-identity=' + document._id + '>View Image</a>';
 				}
 		
                 var currStyle = styles[i % 2];

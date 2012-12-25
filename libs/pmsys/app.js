@@ -183,7 +183,5 @@ $(function() {
         $(window).scrollTop(0);
     });
         
-    $('#gallery a').lightBox();
-	
-
+ 
 });
