@@ -30,7 +30,7 @@
        "map": "function(doc) {\n  if (doc.state && doc.type) emit([doc.state, doc.type], doc);\n}"
    },
    "getDocumentsByOrgID": {
-       "map": "function(doc) {\n  if (doc.organizationId && doc.type) emit([doc.organizationId, doc.type], doc);\n}"
+       "map": "function(doc) {\n if (doc.organizationId && doc.type) emit([doc.organizationId, doc.type], {_id: doc._id, assignedTo: doc.assignedTo, created: doc.created, date: doc.date, descr: doc.descr, name: doc.name, organizationId: doc.organizationId, projectId: doc.projectId, state: doc.state, timelimit: doc.timelimit, type: doc.type, userId: doc.userId, image: doc.image = (doc.image != '') ? true: false }); \n}"
    },
    "viewByOrgName": {
        "map": "function(doc) {\n  if (doc.Organization) emit(doc.Organization, doc);\n}"
@@ -49,5 +49,9 @@
    },
    "allProjectsByOrganizationID": {
        "map": "function(doc) {\n  if (doc.organizationId && doc.projectId== null) emit(doc.organizationId, doc);\n}"
+   },
+   
+   "getImageByID": {
+       "map": "function(doc) {\n  \tif(doc._id) {\n  \t\temit(doc._id, {image: doc.image});\n\t}\n}"
    }
 }

@@ -2,19 +2,20 @@
 </div>
 <button style="float: left; margin: 20px;" type="button" id="btnShowModalForm">
 </button>
-<script type="text/javascript">    
-$(function () {
+<script type="text/javascript">
+    $(function () {
+
         var file = new model.file();
         var consts = new model.consts();
         var currUser = system.currUser();
         var segment = $.url(location).fsegment(1);
         _docType = getDocTypeByUrlSegment();
-        
+
         var element = {
             _file: file,
             _type: _docType
         }
-        
+
 
         $('#btnShowModalForm').hide();
         if ((currUser.position == consts.admin) || (currUser.position == consts.manager)) {

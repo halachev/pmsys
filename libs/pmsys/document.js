@@ -129,7 +129,7 @@ var model = {
         //handler user file
         $(':file').change(function () {
 
-            model.documentFile("uploadImage", "uploadPreview", file);
+            model.documentFile("uploadImage", "uploadPreview", file);			
 
         });
 
@@ -237,6 +237,7 @@ var model = {
 
             var data = JSON.parse(response.result);
             var document = data.rows[0].value;
+	
 
             document.type = document.type;
             document.name = $('#docName').val();
@@ -252,7 +253,7 @@ var model = {
 
 
             //update document by id
-            JsonBridge.execute('WDK.API.CouchDb', 'updateDocument', ['pmsystem', document._id, JSON.stringify(document)], function () {
+            JsonBridge.execute('WDK.API.CouchDb', 'updateDocument', ['pmsystem', _docId, JSON.stringify(document)], function () {
 
                 $.alert('OK', 'You have successfully updated your document!');
 
@@ -391,10 +392,10 @@ var model = {
             document.image = element._file.data;
             document.assignedTo = $('#selectedUser option:selected').text();
             model.newDocument(document, element._file);
-            model.documents($('#containerContent'), element._type);
-            $.alert('OK', 'Document was created');
+           
+			$.alert('OK', 'Document was created');
 
-            model.documents($('#containerContent'), document.type);
+            model.refreshDocuments(document);
 
 
         });
@@ -443,7 +444,7 @@ var model = {
         var _view = 'getDocumentsByOrgID?descending=true&key=["' + currUser.organization + '", ' + _type + ']';
 
         JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (data) {
-
+			
             var html = model.documentHtml(data);
             _Html.html(html);
             $('#process_loading').html('');
@@ -451,7 +452,8 @@ var model = {
     },
 
     documentHtml: function (_data) {
-
+	
+		
         var data = JSON.parse(_data.result);
 		
         var html = '<table width="100%" cellspacing="0" cellpadding="1">';
@@ -467,11 +469,11 @@ var model = {
 
         var consts = new model.consts();
         var currUser = system.currUser();
-
+		
         for (var i = 0; i < data.rows.length; i++) {
 
             var document = data.rows[i].value;
-
+			
             var actions = '';
 
             if (currUser.position == consts.admin) {
@@ -535,9 +537,9 @@ var model = {
 
                 //                }
 				
-				if (document.image != "") {
-					image = '<a href ="' + document.image + '"  target="_blank">'
-					image += '<img src ="' + document.image + '"  width="75"  /></a>';
+				var image = '';
+				if (document.image == true) {					
+					image = '<a id="test" href=#canShowImage data-identity=' + document._id + '>View Image</a>';
 				}
 		
                 var currStyle = styles[i % 2];

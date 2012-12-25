@@ -115,5 +115,27 @@ $("a[href=#document-descr]").live("click", function () {
 });
 
 
+$("a[href=#canShowImage]").live("click", function() {
+
+    var _id = $(this).data("identity");
+		
+	JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getImageByID?key="' + _id + '"'], function(response) {
+
+            
+            var data = JSON.parse(response.result);
+            var document = data.rows[0].value;
+			
+			location = document.image;
+			
+			return false;
+			
+        });
+	
+   
+
+});
+
+
+
 
 
