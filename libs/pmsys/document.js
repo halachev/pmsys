@@ -58,7 +58,7 @@ var model = {
 
                 '*Name:' +
                 '<br/>' +
-                '<input type="text" id="docName" />' +
+                '<input type="text" class="dialog_input_text" id="docName" />' +
                 '<br/>' +
 
                 '<div id="projectID" >' +
@@ -74,10 +74,10 @@ var model = {
 
                 'Description:' +
                 '<br/>' +
-                '<textarea cols="30" rows="3" id="docDescr"></textarea><br/>' +
+                '<textarea class="dialog_message" cols="30" rows="3" id="docDescr"></textarea><br/>' +
                 '*Time limit:' +
                 '<br/>' +
-                '<input type="text" id="timeLimit"/>' +
+                '<input type="text" class="dialog_input_text" id="timeLimit"/>' +
                 '<br/>' +
 
                 '<br/>' +
@@ -307,7 +307,7 @@ var model = {
 
             '*Name:' +
             '<br/>' +
-            '<input type="text" id="docName" />' +
+            '<input type="text" class="dialog_input_text" id="docName" />' +
             '<br/>' +
 
             '<div id="projectID" >' +
@@ -323,10 +323,10 @@ var model = {
 
             'Description:' +
             '<br/>' +
-            '<textarea cols="30" rows="3" id="docDescr"></textarea><br/>' +
+            '<textarea class="dialog_message" cols="30" rows="3" id="docDescr"></textarea><br/>' +
             '*Time limit:' +
             '<br/>' +
-            '<input type="text" id="timeLimit"/>' +
+            '<input type="text" class="dialog_input_text" id="timeLimit"/>' +
             '<br/>' +
 
             '<br/>' +
@@ -399,17 +399,6 @@ var model = {
 
 
         });
-
-
-        $('input, textarea').focusin(function () {
-            $(this).css('background', '#f5f5f5');
-        });
-
-        $('input, textarea').focusout(function () {
-            $(this).css('background', '#fff');
-        });
-
-
 
     },
 

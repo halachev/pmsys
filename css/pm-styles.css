@@ -362,3 +362,23 @@ table th
     
 }
 
+.dialog_input_text {
+padding:10px 10px;
+width:200px;
+border-bottom: 1px double #ccc;
+border-top: 1px double #ccc;
+border-left:1px double #ccc;
+border-right:1px double #ccc;
+}
+
+.dialog_message{
+padding:10px 10px;
+width:340px;
+height: 50px;
+border-bottom: 1px double #ccc;
+border-top: 1px double #ccc;
+border-left:1px double #ccc;
+border-right:1px double #ccc;
+}
+
+
