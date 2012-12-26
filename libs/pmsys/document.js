@@ -479,9 +479,9 @@ var model = {
 
                 actions =
                 '<div style="padding: 10px;">' + 
-					'<a href=#canEditDocument data-identity=' + document._id + '><img src="menu-icons/edit.png" /></a> ' +
-					'<a href=#canCopyDocument data-identity=' + document._id + '><img src="menu-icons/copy.png" /></a> ' +
-					'<a href=#canDelDocument data-identity=' + document._id + '><img src="menu-icons/del.png" /></a>' + 
+					'<a href=#canEditDocument data-identity=' + document._id + ' title="Edit"><img src="menu-icons/edit.png" /></a> ' +
+					'<a href=#canCopyDocument data-identity=' + document._id + ' title="Copy"><img src="menu-icons/copy.png" /></a> ' +
+					'<a href=#canDelDocument data-identity=' + document._id + ' title="Delete"><img src="menu-icons/del.png" /></a>' + 
 				'</div>';
 
             }
@@ -512,7 +512,7 @@ var model = {
 
 				var image = 'No Image';
 				if (document.image == true) {					
-					image = '<a href=#canShowImage data-identity=' + document._id + '>View Image</a>';
+					image = '<a href=#canShowImage data-identity=' + document._id + ' title="Click to view image">View Image</a>';
 				}
 		
                 var currStyle = styles[i % 2];
@@ -548,7 +548,7 @@ var model = {
                 '<td><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
             
                 //hide div elemtn with description
-                '<div class="table-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '</td>' +
+                '<div class="document-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' +  '</td>' +
 
                 '<td>' + document.date + '</td>' +
                         '<td>' + image + '</td>' +
