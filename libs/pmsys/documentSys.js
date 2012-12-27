@@ -52,9 +52,7 @@ var system = {
         '<li>' +      
         '<a href="#pm-logOut" id="logOut" title="logOut"><span class="meta"><img src="menu-icons/exit.png" /><br/>Log-Out</span></a>' +      
         '</li>' +   
-   
-
-
+		
         '</ul>';
         
         $('#headerMenu').html(headerMenu);
@@ -108,22 +106,22 @@ var system = {
 				'<span id="projectFilter">' + 
 				'<label for="filterByProject">'+
 				'<br/>'+
-				'Projects<select id="filterByProject"></select> </label>' + 
+				'Projects<select id="filterByProject" style="width:160px;"></select> </label>' + 
 				'</span>' + 
 				
 				'States'+
 
 				
-				'<select id="filterByState">'+
+				'<select id="filterByState" style="width:120px;">'+
 				'<option value="-1">-All-</option>'+
-				'<option value="0">Reported</option>'+
-				'<option value="1">Repaired</option>'+
-				'<option value="2">Canceled</option>'+
-				'<option value="3">Deferred</option>'+
-				'<option value="4">Detached</option>'+
+				'<option value="0" data-image="menu-icons/reported.png">Reported</option>'+
+				'<option value="1" data-image="menu-icons/Repaired.png">Repaired</option>'+
+				'<option value="2" data-image="menu-icons/Canceled.png">Canceled</option>'+
+				'<option value="3" data-image="menu-icons/Deferred.png">Deferred</option>'+
+				'<option value="4" data-image="menu-icons/Detached.png">Detached</option>'+
 				'</select>'+
 				
-				'Users<label for="filterByUser"> <select id="filterByUser"></select> </label>'+
+				'Users<label for="filterByUser"><select id="filterByUser" style="width:160px;"></select> </label>'+
 				
 				'From<label for="DateFrom">'+
 				'<input type="text" size="10" id="DateFrom" />'+
@@ -145,8 +143,11 @@ var system = {
 				$('#filter-box').html(filterbox);
 				$('#projectFilter').hide();
 				
-				model.CboxFillProjects($('#filterByProject'));
+				model.CboxFillProjects($('#filterByProject'));			
 				model.CboxFillUsers($('#filterByUser'));
+				
+				$("#filterByState").msDropDown(); 
+				
 										
 				$.get('/ui/pm-filter.html', function(login_data) {
 					$('#containerSite').html(login_data);

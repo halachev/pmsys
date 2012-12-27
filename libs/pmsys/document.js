@@ -69,7 +69,7 @@ var model = {
 
                 'Assigned to:' +
                 '<br/>' +
-                '<select id="selectedUser"></select>' +
+                '<select id="selectedUser" style="width:250px;"></select>' +
                 '<br/>' +
 
                 'Description:' +
@@ -95,7 +95,6 @@ var model = {
             $("#timeLimit").datepick({
                 showTrigger: '#calImg'
             });
-
 
             model.CboxFillUsers($('#selectedUser'), true, document.userId);
 
@@ -313,12 +312,12 @@ var model = {
             '<div id="projectID" >' +
             'Projects:' +
             '<br>' +
-            '<select id="selectedProject"></select>' +
+            '<select id="selectedProject" style="width:250px;"></select>' +
             '</div>' +
 
             'Assigned to:' +
             '<br/>' +
-            '<select id="selectedUser"></select>' +
+            '<select id="selectedUser" style="width:250px;"></select>' +
             '<br/>' +
 
             'Description:' +
@@ -345,15 +344,15 @@ var model = {
             showTrigger: '#calImg'
         });
 
-
+	
         var consts = new model.consts();
         if (element._type == consts.project)
             $('#projectID').hide();
         else
             model.CboxFillProjects($('#selectedProject'), false, 0);
-
-
+		
         model.CboxFillUsers($('#selectedUser'), false, 0);
+		
 
         //handler user file
         $(':file').change(function () {
@@ -435,9 +434,11 @@ var model = {
         JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (data) {
 			
             var html = model.documentHtml(data);
-            _Html.html(html);
+            _Html.html(html);			
             $('#process_loading').html('');
         });
+		
+
     },
 
     documentHtml: function (_data) {
@@ -522,7 +523,7 @@ var model = {
         }
 
         html += '</table>';
-
+        
         return html;
 
     },
@@ -560,6 +561,7 @@ var model = {
                          '<input type="button" class="btnState" value="Apply" disabled=disable>' + currObj.actions +
                          '<input type="hidden" class="docId" value=' + document._id + ' /></td></div></tr>';
 
+						
              return html;
 		
 	
@@ -608,7 +610,7 @@ var model = {
 
     CboxFillUsers: function (cBoxElement, selected, _id) {
 
-        cBoxElement.empty();
+        cBoxElement.empty();		
         cBoxElement.html('<option value=0>-All-</option>');
 
         var currUser = new system.currUser();
@@ -622,7 +624,7 @@ var model = {
 
                 var user = data.rows[i].value;
 
-                cBoxElement.append('<option value="' + user._id + '">' + user.username + '</option>');
+                cBoxElement.append('<option value="' + user._id + '" data-image="menu-icons/user_avatar.png">' + user.username + '</option>');
 
                 // set drobbox element in edit, copy - mode
                 if (selected) {
@@ -634,13 +636,14 @@ var model = {
 
             }
 
+			cBoxElement.msDropDown();
         });
 
 
     },
 
     CboxFillProjects: function (element, selected, _id) {
-
+	
         element.empty();
         element.append('<option value=0>- All -</option>');
 
@@ -665,12 +668,11 @@ var model = {
                     if (_id == document._id)
                         element[0].selectedIndex = i + 1;
 
-                }
-
-
+                }				
             }
-
+			element.msDropDown();			
         });
+			
     },
 
     documentFilter: function () {
@@ -752,6 +754,7 @@ var model = {
 
             var html = model.documentHtml(response);
             _filter.container.html(html);
+			
             $('#process_loading').html('');
 
         });

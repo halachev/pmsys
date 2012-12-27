@@ -1,5 +1,5 @@
 $(function() {
-
+	
     $('table tr:even').css('background-color', '#000');
 
     JsonBridge.useAuthorization = true;
@@ -182,6 +182,6 @@ $(function() {
     $("a").click(function() {
         $(window).scrollTop(0);
     });
-        
- 
+	
+	
 });
