@@ -1,0 +1,57 @@
+{
+   "viewByName": {
+       "map": "function(doc) {\n  if (doc.username) emit(doc.username, doc);\n}"
+   },
+   "viewAll": {
+       "map": "function(doc) {\n  emit(doc._id, doc);\n}"
+   },
+   "GetDocumentsByProjectID": {
+       "map": "function(doc) {\n if (doc.projectId && doc.type)  emit([doc.projectId, doc.type], doc);\n}"
+   },
+   "allCustomers": {
+       "map": "function(doc) {\n if (doc.State == 1) { emit(doc, doc); }\n}"
+   },
+   "getDocumentByID": {
+       "map": "function(doc) {\n  \tif(doc._id) {\n  \t\temit(doc._id, doc);\n\t}\n}"
+   },
+   "viewLastProjects": {
+       "map": "function(doc) {\n  \tif(doc.type == 1) {\n  \t\temit(doc._id, doc);\n\t}\n}"
+   },
+   "viewAllOrganisation": {
+       "map": "function(doc) {\n  if ( doc.State > 0 ) emit(doc.SecretCode, doc);\n}"
+   },
+   "getSecretCode": {
+       "map": "function(doc) {\n  if ( doc.SecretCode) emit(doc.SecretCode, doc);\n}"
+   },
+   "allUsersByOrganizationID": {
+       "map": "function(doc) {\n  if ( (doc.secret_code) && (doc.position == 1) || (doc.position == 4)) emit(doc.secret_code , doc);\n}"
+   },
+   "getDocumentsByState": {
+       "map": "function(doc) {\n  if (doc.state && doc.type) emit([doc.state, doc.type], doc);\n}"
+   },
+   "getDocumentsByOrgID": {
+       "map": "function(doc) {\n if (doc.organizationId && doc.type) emit([doc.organizationId, doc.type], {_id: doc._id, assignedTo: doc.assignedTo, created: doc.created, date: doc.date, descr: doc.descr, name: doc.name, organizationId: doc.organizationId, projectId: doc.projectId, state: doc.state, timelimit: doc.timelimit, type: doc.type, userId: doc.userId, image: doc.image = (doc.image != '') ? true: false }); \n}"
+   },
+   "viewByOrgName": {
+       "map": "function(doc) {\n  if (doc.Organization) emit(doc.Organization, doc);\n}"
+   },
+   "viewByEmail": {
+       "map": "function(doc) {\n  if (doc.email) emit(doc.email, doc);\n}"
+   },
+   "viewByDate": {
+       "map": "function(doc) {\n  if (doc.type && doc.date) emit([doc.type, doc.date], doc);\n}"
+   },
+   "GetDocumentsByUserID": {
+       "map": "function(doc) {\n  if (doc.userId && doc.type) emit([doc.userId, doc.type], doc);\n}"
+   },
+   "filterByParams": {
+       "map": "function(doc) {\n  if (doc.userId || doc.state || doc.type) emit([doc.userId, doc.state, doc.type], doc);\n}"
+   },
+   "allProjectsByOrganizationID": {
+       "map": "function(doc) {\n  if (doc.organizationId && doc.projectId== null) emit(doc.organizationId, doc);\n}"
+   },
+   
+   "getImageByID": {
+       "map": "function(doc) {\n  \tif(doc._id) {\n  \t\temit(doc._id, {image: doc.image});\n\t}\n}"
+   }
+}
