@@ -1,3 +1,8 @@
+/* http://pmsys.org/
+   version 1.0
+   Written by Nurietin Mehmedov (01.08.2012).  
+   Please attribute the author if you use it. */
+   
 //control menu and other element by user id
 var system = {
     headerMenu: function (_isLogin){
@@ -143,9 +148,9 @@ var system = {
 				$('#filter-box').html(filterbox);
 				$('#projectFilter').hide();
 				
-				model.CboxFillProjects($('#filterByProject'));			
-				model.CboxFillUsers($('#filterByUser'));
-				
+				system.initUsers($('#filterByUser'));
+				system.initProjects($('#filterByProject'));
+											
 				$("#filterByState").msDropDown(); 
 				
 										
@@ -169,7 +174,79 @@ var system = {
 			}
 
     },
-
+	
+    initUsers: function (_element) {
+		
+		var count = $.cookie("user-data-count");
+		
+		if (count > 0)
+		{
+			model.CboxFillUsers(_element);
+			return false;
+		}
+		
+		var currUser = new system.currUser();
+		var _view = 'allUsersByOrganizationID?descending=true&key="' + currUser.secret_code + '"';
+		
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
+			
+			var data = JSON.parse(response.result);
+			
+			$.cookie("user-data-count", data.rows.length);	
+			
+			for (var i = 0; i < data.rows.length; i++) {
+				
+				var user = data.rows[i].value;
+										
+				$.cookie("user-data-" + i, JSON.stringify(user));
+			
+			}
+				model.CboxFillUsers(_element);
+		});
+		
+		
+	},
+	
+	initProjects: function (_element) {
+	
+		var count = $.cookie("project-data-count");
+		
+		if (count > 0)
+		{
+			model.CboxFillProjects(_element);
+			return false;
+		}
+		
+		var currUser = system.currUser();
+		if (currUser == null) return;
+		
+		var _view = 'allProjectsByOrganizationID?descending=true&key="' + currUser.organization + '"';
+		
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
+			
+			var data = JSON.parse(response.result);
+			$.cookie("project-data-count", data.rows.length);	
+			
+			for (var i = 0; i < data.rows.length; i++) {
+				
+				var document = data.rows[i].value;
+				
+				// cookie cannot store big json data such as image				
+				var arr = {
+					name: document.name,
+					id: document._id
+				};
+				
+				$.cookie("project-data-" + i, JSON.stringify(arr));
+								
+			}
+				
+			model.CboxFillProjects(_element);	
+		});
+		
+		
+	},
+	
     secretCode : function(secret) {
 
         if (secret == "")
@@ -257,6 +334,22 @@ var system = {
 
         $.removeCookie('user.Id');
         $.removeCookie('currUser');
+		
+		var count = $.cookie("user-data-count");
+		for (i=0;i<count;i++)
+		{
+			$.removeCookie('user-data-' + i);
+		}
+
+		var count = $.cookie("project-data-count");
+		for (i=0;i<count;i++)
+		{
+			$.removeCookie('project-data-' + i);
+		}	
+
+		$.removeCookie('user-data-count');	
+		$.removeCookie('project-data-count');		
+		
         window.location.href = "index.html";
 
     },

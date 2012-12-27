@@ -1,3 +1,8 @@
+/* http://www.skitsanos.com/
+   version 1.0
+   Written by Scitsanos 
+   Please attribute the author if you use it. */
+   
 var JsonBridge = {
     useAuthorization : false,
     authorizationHandler : function(username, password) {

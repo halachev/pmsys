@@ -1,3 +1,8 @@
+/* http://pmsys.org/
+   version 1.0
+   Written by Nurietin Mehmedov (01.08.2012).  
+   Please attribute the author if you use it. */
+   
 *
 {
     margin: 0;
@@ -107,6 +112,7 @@ h6
 {
     font-size: 1.1em;
 }
+
 
 #Wrapper
 {
@@ -302,17 +308,6 @@ h6
 }
 
 
-.pm-style-box
-{	
-	
-    width: 540px;
-	height: auto;
-	padding: 20px;
-    font: 14px Arial, Helvetica, sans-serif;
-    text-decoration: none;
-}
-
-
 table
 {
     float: left;    
@@ -338,6 +333,17 @@ table th
     margin: 10px;
 }
 
+/* PM SYS basic */
+.pm-style-box
+{	
+	
+    width: 540px;
+	height: auto;
+	padding: 20px;
+    font: 14px Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
 
 .odd-row
 {
@@ -350,6 +356,7 @@ table th
 }
 
 
+/* add style for document description */
 .document-descr
 {
     margin: 2px;
@@ -362,6 +369,9 @@ table th
     
 }
 
+/* -------------------------------------- */
+
+/* style for modal form input text element */
 .dialog_input_text {
 padding:10px 10px;
 width:200px;
@@ -380,5 +390,7 @@ border-top: 1px double #ccc;
 border-left:1px double #ccc;
 border-right:1px double #ccc;
 }
+
+/* ------------------------------------- */
 
 

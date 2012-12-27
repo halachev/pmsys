@@ -1,6 +1,6 @@
 <div style="padding: 25px;" id="process_loading">
 </div>
-<button style="float: left; margin: 20px;" type="button" id="btnShowModalForm">
+<button style="float: left; margin: 10px;" type="button" id="btnShowModalForm">
 </button>
 <script type="text/javascript">
     $(function () {
@@ -18,19 +18,22 @@
 
 
         $('#btnShowModalForm').hide();
-        if ((currUser.position == consts.admin) || (currUser.position == consts.manager)) {
+        if (currUser.position == consts.admin) {
             $('#btnShowModalForm').show();
             $('#btnShowModalForm').click(function () {
                 model.ShowModalForm(element);
             })
         }
         model.documents($('#containerContent'), _docType, false);
+		
         $("#DateFrom").datepick({
             showTrigger: '#calImg'
         });
+		
         $("#DateTo").datepick({
             showTrigger: '#calImg'
         });
+		
         $('#filterByUser').change(function (event) {
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
@@ -44,6 +47,7 @@
                 model.filterByUser(docFilter);
             }
         });
+		
         //filter by date
         $('#btnFilterByDate').click(function (event) {
             event.stopImmediatePropagation();
@@ -54,6 +58,7 @@
             docFilter.endDate = $('#DateTo').val();
             model.filterByDate(docFilter);
         });
+		
         //filter by project
         $("#filterByProject").change(function (event) {
             event.stopImmediatePropagation();
@@ -68,6 +73,7 @@
                 model.FilterByProject(docFilter);
             }
         });
+		
         //filyter by state
         $("#filterByState").change(function (event) {
             event.stopImmediatePropagation();
@@ -84,6 +90,7 @@
                 model.FilterByStates(docFilter);
             }
         });
+		
         function getDocTypeByUrlSegment() {
             var segment = $.url(location).fsegment(1);
             if (segment == "")

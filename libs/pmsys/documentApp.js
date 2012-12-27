@@ -1,3 +1,8 @@
+/* http://pmsys.org/
+   version 1.0
+   Written by Nurietin Mehmedov (01.08.2012).  
+   Please attribute the author if you use it. */
+   
 var app = {
 
     utils : {
