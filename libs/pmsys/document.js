@@ -606,16 +606,16 @@ var model = {
 		cBoxElement.empty();
 		cBoxElement.html('<option value=0>-All-</option>');
 		
-		var count = $.cookie("user-data-count");
+		var count = localStorage.getItem("user-data-count");
 		
 		if (count > 0) 
 		{
 			for (i=0;i<count;i++)
 			{
-				var user  = JSON.parse($.cookie("user-data-" + i));
+				var user  = JSON.parse(localStorage.getItem("user-data-" + i));
 				cBoxElement.append('<option value="' + user._id + '" data-image="menu-icons/user_avatar.png">' + user.username + '</option>');
 			
-			    if (selected) {
+			    if (selected) {	
 					
 					if (_id == user._id)
 						cBoxElement[0].selectedIndex = i + 1;
@@ -634,13 +634,13 @@ var model = {
 		element.empty();
 		element.append('<option value=0>- All -</option>');
 				
-		var count = $.cookie("project-data-count");
+		var count = localStorage.getItem("project-data-count");
 		
 		if (count > 0) 
 		{
 			for (i=0;i<count;i++)
 			{
-				var document = JSON.parse($.cookie("project-data-" + i));
+				var document = JSON.parse(localStorage.getItem("project-data-" + i));
 				
 				if (document ==  null) return false;
 				element.append('<option value="' + document._id + '" data-image="menu-icons/documents.png">' + document.name + '</option>');

@@ -177,7 +177,7 @@ var system = {
 	
     initUsers: function (_element) {
 		
-		var count = $.cookie("user-data-count");
+		var count = localStorage.getItem("user-data-count"); 
 		
 		if (count > 0)
 		{
@@ -192,13 +192,13 @@ var system = {
 			
 			var data = JSON.parse(response.result);
 			
-			$.cookie("user-data-count", data.rows.length);	
+			localStorage.setItem("user-data-count", data.rows.length);	
 			
 			for (var i = 0; i < data.rows.length; i++) {
 				
 				var user = data.rows[i].value;
 										
-				$.cookie("user-data-" + i, JSON.stringify(user));
+				localStorage.setItem("user-data-" + i, JSON.stringify(user));
 			
 			}
 				model.CboxFillUsers(_element);
@@ -209,7 +209,7 @@ var system = {
 	
 	initProjects: function (_element) {
 	
-		var count = $.cookie("project-data-count");
+		var count = localStorage.getItem("project-data-count");
 		
 		if (count > 0)
 		{
@@ -225,7 +225,7 @@ var system = {
 		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
 			
 			var data = JSON.parse(response.result);
-			$.cookie("project-data-count", data.rows.length);	
+			localStorage.setItem("project-data-count", data.rows.length);	
 			
 			for (var i = 0; i < data.rows.length; i++) {
 				
@@ -237,7 +237,7 @@ var system = {
 					id: document._id
 				};
 				
-				$.cookie("project-data-" + i, JSON.stringify(arr));
+				localStorage.setItem("project-data-" + i, JSON.stringify(arr));
 								
 			}
 				
@@ -335,20 +335,20 @@ var system = {
         $.removeCookie('user.Id');
         $.removeCookie('currUser');
 		
-		var count = $.cookie("user-data-count");
+		var count = localStorage.getItem("user-data-count");
 		for (i=0;i<count;i++)
 		{
-			$.removeCookie('user-data-' + i);
+			localStorage.removeItem('user-data-' + i);
 		}
 
-		var count = $.cookie("project-data-count");
+		var count = localStorage.getItem("project-data-count");
 		for (i=0;i<count;i++)
 		{
-			$.removeCookie('project-data-' + i);
+			localStorage.removeItem('project-data-' + i);
 		}	
 
-		$.removeCookie('user-data-count');	
-		$.removeCookie('project-data-count');		
+		localStorage.removeItem('user-data-count');	
+		localStorage.removeItem('project-data-count');		
 		
         window.location.href = "index.html";
 
