@@ -137,7 +137,7 @@ var model = {
 		});
 		
 		$('#btnEditDocument').click(function () {
-			alert($('#selectedProject').val());
+			
 			var params = model.initParams(
 					$('#docName').val(),
 					$('#selectedProject').val(),
