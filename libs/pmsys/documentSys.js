@@ -234,7 +234,7 @@ var system = {
 				// cookie cannot store big json data such as image				
 				var arr = {
 					name: document.name,
-					id: document._id
+					_id: document._id
 				};
 				
 				localStorage.setItem("project-data-" + i, JSON.stringify(arr));
