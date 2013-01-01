@@ -345,6 +345,24 @@ table th
 }
 
 
+div.main-box
+{
+float: left;
+position: relative;
+width:220px;
+height: 250px;
+padding:10px;
+border:1px solid #2d2d2d;
+margin:30px;
+background-color: #f5f5f5;
+
+}
+
+div.main-box:hover 
+{	    
+	background-color: #fff;
+}
+
 .odd-row
 {
     background-color: #ccc;
