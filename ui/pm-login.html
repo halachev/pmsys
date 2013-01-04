@@ -46,12 +46,12 @@
 
                 var fromAddress = "pmsystem.mehmedov@gmail.com";
                 var toAddress = $('#emailAddress').val()
-                var subject = "PMsystem - forgot password!";
+                var subject = "PM Sys - forgot password!";
 
                 var body = '<html><body>Dear customers you lost your PMSys password: <br/>';
                 body += 'username: ' + user.username;
                 body += '<br/>password:  ' + user.password;
-                body += '<br/>Thanks,The PMSys Team </html></body>';
+                body += '<br/>Thanks,The PM Sys Team </html></body>';
 
                 var params = [fromAddress, toAddress, subject, body, '', '', '', false];
 
@@ -72,7 +72,7 @@
             event.stopImmediatePropagation();
 
             if (($('#l_username').val() == '') || ($('#l_password').val() == '')) {
-                $('#resposne_message').html('Both Username and Password <br/> required to access PMSystem');
+                $('#resposne_message').html('Both Username and Password <br/> required to access PM Sys');
                 return;
             }
 
@@ -80,7 +80,7 @@
 
                 var data = JSON.parse(e_s.result);
                 if (data.rows == "") {
-                    $('#resposne_message').html('User does not exist - PMSystem');
+                    $('#resposne_message').html('User does not exist - PM Sys');
                     return;
                 }
 
@@ -88,10 +88,10 @@
 
                 if ((user.username == $('#l_username').val()) && (user.password == $('#l_password').val())) {
 
-                    $.cookie('user.Id', user._id);
-                    $.alert('Access ', $('#l_username').val() + ' Welcome to PMSystem', true);
+                    $.cookie('user.Id', user._id);                    
+					$.alert('Access ', $('#l_username').val() + ' Welcome to PM Sys', true);
                 } else
-                    $('#resposne_message').html('Username and Password <br/> is not valid to access PMSystem');
+                    $('#resposne_message').html('Username and Password <br/> is not valid to access PM Sys');
 
             });
 
