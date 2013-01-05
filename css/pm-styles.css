@@ -392,16 +392,6 @@ div.main-box:hover p
 	color: #2d2d2d;
 }
 
-.odd-row
-{
-    background-color: #f5f5f5;
-}
-
-.even-row
-{
-    background-color: #cacaff;
-}
-
 
 /* add style for document description */
 .document-descr

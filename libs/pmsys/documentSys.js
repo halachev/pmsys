@@ -341,23 +341,62 @@ var system = {
     },
     
      getCustomers : function() {
+	 
         $('#containerSite').html(app.ui.loader);
-        JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'allCustomers?descending=true'], function(response) {
+        var customers = [];
+		
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'allCustomers?descending=true'], function(response) {
             var data = JSON.parse(response.result);
-			var html = '';
-			styles = new Array('even-row', 'odd-row');
+						
             for (var i = 0; i < data.rows.length; i++) {
 
                 var doc = data.rows[i].value;
-				var currStyle = styles[i % 2];
-				html += '<div class="pm-style-box">';
-                html += '<div class='+ currStyle+'><strong>' + doc.Organization  + '</strong></div>';
-				html += '<div class='+ currStyle+'>' + doc.Email  + '</div>';
-				html += '<div class='+ currStyle+'>' + doc.Date  + '</div>';
-				html += '</div>';
-
+			
+				customers.push({
+					  
+						Id: doc._id,
+						Organization: doc.Organization,
+						Date: doc.Date,            
+						Email : doc.Email						
+						
+					});
+			    
+			  			
             }
-           
+			$('#containerSite').html('');	
+			$("#containerSite").kendoGrid({
+                        
+						dataSource: {
+                            data: customers,
+                            pageSize: 10
+                        },
+						
+                        sortable: {
+                            mode: "single",
+                            allowUnsort: false
+                        },
+												                       
+                        pageable: true,
+                        scrollable: false,
+                       
+                        columns: [							
+                            {
+                                field: "Organization",
+                                title: "Organization"
+								
+                            },
+                            {
+                                field: "Date",
+                                title: "Date"
+                            },
+                            {
+                                field: "Email",
+                                title: "Email"
+                            }
+                        ]
+            });	
+					
+			
             $('#containerSite').html(html);
         });
 
@@ -366,28 +405,63 @@ var system = {
       lastProjects : function() {
 
 		$('#containerSite').html(app.ui.loader);
-      
-        var html = '';       
+		var projects = [];
         
-        JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewLastProjects?descending=true&limit=10'], function(response) {
+        JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewLastProjects?descending=true'], function(response) {
 
             var data = JSON.parse(response.result);
-			styles = new Array('even-row', 'odd-row');  
+			
             for (var i = 0; i < data.rows.length; i++) {
                 var document = data.rows[i].value;
-              
-				var currStyle = styles[i % 2];
-				html += '<div class="pm-style-box">';
-                html += '<div class='+ currStyle+'><strong>' + document.name  + '</strong></div>';
-				html += '<div class='+ currStyle+'>' + document.descr  + '</div>';
 				
-				html += '</div>';
+				projects.push({
+					  
+						Id: document._id,
+						documentName: document.name,
+						documentDesc: document.descr,            
+						documentEmail: document.email						
+						
+					});
+			    
+			  			
             }
-
-            
-            $('#containerSite').html(html);
+			$('#containerSite').html('');	
+			$("#containerSite").kendoGrid({
+                        
+						dataSource: {
+                            data: projects,
+                            pageSize: 10
+                        },
+						
+                        sortable: {
+                            mode: "single",
+                            allowUnsort: false
+                        },
+												                       
+                        pageable: true,
+                        scrollable: false,
+                       
+                        columns: [							
+                            {
+                                field: "documentName",
+                                title: "Name"
+								
+                            },
+                            {
+                                field: "documentDesc",
+                                title: "Description"
+                            },
+                            {
+                                field: "documentEmail",
+                                title: "Email"
+                            }
+                        ]
+            });	
+					
+			
         });
 
+		
     }
 
 
