@@ -126,18 +126,19 @@ h6
 
 #MainHeader
 {
+	
     width: 970px;
     height: 70px;
     padding: 15px;
     font: 14px Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: #2d2d2d;
-    background: #f5f5f5 url('/logos/pmsys.png') right center no-repeat;
+    background: #f5f5f5 url('/logos/pmsys.png') left center no-repeat;
 }
 
 #main-header-text 
 {
-	float: left;    
+	float: right;    
 	padding: 10px;		
 	color: #2d2d2d; 
 	font-size: 12px;	

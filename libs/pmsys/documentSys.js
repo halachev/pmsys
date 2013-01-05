@@ -35,13 +35,13 @@ var system = {
         '</ul>' +      
         '</li>' +      
 
-        '<li>' +      
-        '<a href="#pm-register" id="register" title="Registration"><span class="meta"><img src="menu-icons/register.png" /><br/>Registration</span></a>' +      
+        '<li style="float: right;">' +      
+        '<a href="#pm-register" style="color: #839922;" id="register" title="Registration"><span class="meta"><img src="menu-icons/register.png" /><br/>Registration</span></a>' +      
         '</li>' +   
 		
 
-        '<li>' +      
-        '<a href="#pm-login" id="login" title="Sign in"><span class="meta"><img src="menu-icons/login.png" /><br/>Sign in</span></a>' +      
+        '<li style="float: right">' +      
+        '<a href="#pm-login" style="color: pink;" id="login" title="Sign in"><span class="meta"><img src="menu-icons/login.png" /><br/>Sign in</span></a>' +      
         '</li>   ' +        
 
         item + 
@@ -396,8 +396,7 @@ var system = {
                         ]
             });	
 					
-			
-            $('#containerSite').html(html);
+	           
         });
 
     },
@@ -418,8 +417,7 @@ var system = {
 					  
 						Id: document._id,
 						documentName: document.name,
-						documentDesc: document.descr,            
-						documentEmail: document.email						
+						documentDesc: document.descr											
 						
 					});
 			    
@@ -450,11 +448,7 @@ var system = {
                             {
                                 field: "documentDesc",
                                 title: "Description"
-                            },
-                            {
-                                field: "documentEmail",
-                                title: "Email"
-                            }
+                            }                            
                         ]
             });	
 					
