@@ -14,7 +14,7 @@ $.alert = function(title, msg, login, buttons) {
         height: "auto",
         resize: "auto",
         modal : true,
-        closeOnEscape: true,
+        closeOnEscape: false,
         //show : 'fadeIn',
         closeText : 'Close',        
         resizable : false,

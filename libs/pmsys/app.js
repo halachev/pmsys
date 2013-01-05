@@ -5,7 +5,6 @@
 
 $(function() {
 	
-    $('table tr:even').css('background-color', '#000');
 
     JsonBridge.useAuthorization = true;
     JsonBridge.authorizationHandler = app.utils.setAuthorizationHanlder('cendentleathatenatintere', 'F2h5ChJPVY5CbkqT2RcUFLI2');

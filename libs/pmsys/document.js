@@ -163,8 +163,8 @@ var model = {
 				document.image = file.data;
 				document.assignedTo = $('#selectedUser option:selected').text();
 				model.newDocument(document, file);
-				$.alert('OK', 'Document was created');
-				model.refreshDocuments(document);
+				$.alert('OK', 'Document was created');				
+			    model.refreshDocuments(document);
 				
 			}
 			
@@ -421,145 +421,147 @@ var model = {
 		});
 	},
 	
-	documents : function (_Html, _type) {
-		
-		$('#process_loading').html(app.ui.loader);
-		
+	documents : function (_view) {
+
+		var documentsData = [];		
 		var currUser = system.currUser();
-		
-		var _view = 'getDocumentsByOrgID?descending=true&key=["' + currUser.organization + '", ' + _type + ']';
-		
+		var consts = new model.consts();
+		$('#process_loading').html(app.ui.loader);
 		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (data) {
 			
-			var html = model.documentHtml(data);
-			_Html.html(html);
-			$('#process_loading').html('');
-		});
-		
-	},
-	
-	documentHtml : function (_data) {
-		
-		var data = JSON.parse(_data.result);
-		
-		var html = '<table width="100%" cellspacing="0" cellpadding="0">';
-		styles = new Array('even-row', 'odd-row');
-		
-		html += '<tr>' +
-		'<th>Name</th>' +
-		'<th>Date</th>' +
-		'<th>Image</th>' +
-		'<th>Status</th>' +
-		'<th>Actions</th>' +
-		'</tr>';
-		
-		var consts = new model.consts();
-		var currUser = system.currUser();
-		
-		for (var i = 0; i < data.rows.length; i++) {
+			var userData = JSON.parse(data.result);
 			
-			var document = data.rows[i].value;
+			for (var i = 0; i < userData.rows.length; i++) {
 			
-			var actions = '';
-			if (currUser.position == consts.admin) {
+				var document = userData.rows[i].value;		
+				 
+				var actions = '';
 				
-				actions =
-					'<div style="padding: 10px;">' +
-					'<a href=#canEditDocument data-identity=' + document._id + ' title="Edit"><img src="menu-icons/edit.png" /></a> ' +
-					'<a href=#canCopyDocument data-identity=' + document._id + ' title="Copy"><img src="menu-icons/copy.png" /></a> ' +
-					'<a href=#canDelDocument data-identity=' + document._id + ' title="Delete"><img src="menu-icons/del.png" /></a>' +
+				if (currUser.position == consts.admin) {
+					
+					actions =
+						'<div style="padding: 10px;">' +
+						'<a href=#canEditDocument data-identity=' + document._id + ' title="Edit"><img src="menu-icons/edit.png" /></a> ' +
+						'<a href=#canCopyDocument data-identity=' + document._id + ' title="Copy"><img src="menu-icons/copy.png" /></a> ' +
+						'<a href=#canDelDocument data-identity=' + document._id + ' title="Delete"><img src="menu-icons/del.png" /></a>' +
+						'</div>';				
+				}
+				
+				if ((document.userId == currUser._id)
+					 || (document.organizationId == currUser.organization)
+					 && (currUser.position == consts.admin)) 
+				{
+					
+					var txtState = '';
+					var status = '';
+					
+					if (document.state == consts.Reported) {
+						txtState = "Reported";
+						status = '<img src="/menu-icons/Reported.png" />';
+					} else if (document.state == consts.Repaired) {
+						txtState = "Repaired";
+						status = '<img src="/menu-icons/Repaired.png" />';
+					} else if (document.state == consts.Canceled) {
+						txtState = "Canceled";
+						status = '<img src="/menu-icons/Canceled.png" />';
+					} else if (document.state == consts.Deferred) {
+						txtState = "Deferred";
+						status = '<img src="/menu-icons/Deferred.png" />';
+					} else if (document.state == consts.Detached) {
+						txtState = "Detached";
+						status = '<img src="/menu-icons/Detached.png" />';
+					}
+					
+					var image = 'No Image';
+					if (document.image == true) {
+						image = '<a href=#canShowImage data-identity=' + document._id + ' title="Click to view image">View Image</a>';
+					}
+					
+					
+					var Other = '<div><strong>Time limit:</strong>' + document.timelimit + '</div>' +
+					'<div><strong>Created by:' + document.created + '</strong></div>' +
+					'<div><strong>Assigned to:</strong>' + document.assignedTo + '</div>' +
+					'<div><strong>Status:</strong>' + status + txtState + '</div>';
+					
+					actions = 
+					
+					'<div id="document">' +
+					'<select id="doc_state">' +
+					'<option value="-1">-Select-</option>' +
+					'<option value="0">Reported</option>' +
+					'<option value="1">Repaired</option>' +
+					'<option value="2">Canceled</option>' +
+					'<option value="3">Deferred</option>' +
+					'<option value="4">Detached</option>' +
+					'</select>' +
+					'<input type="button" class="btnState" value="Apply" disabled=disable>' + actions +
+					'<input type="hidden" class="docId" value=' + document._id + ' />' + 
 					'</div>';
-				
+					
+					
+					documentsData.push({
+					  
+						Id: document._id,
+						Name: '<a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a><div class="document-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>',
+						Date: document.date,            
+						Image: image,
+						Other: Other,
+						Actions: actions
+						
+					});
+			 			
+				}
+		     			
 			}
 			
-			if ((document.userId == currUser._id)
-				 || (document.organizationId == currUser.organization)
-				 && (currUser.position == consts.admin)) {
-				
-				var txtState = '';
-				var status = '';
-				
-				if (document.state == consts.Reported) {
-					txtState = "Reported";
-					status = '<img src="/menu-icons/Reported.png" />';
-				} else if (document.state == consts.Repaired) {
-					txtState = "Repaired";
-					status = '<img src="/menu-icons/Repaired.png" />';
-				} else if (document.state == consts.Canceled) {
-					txtState = "Canceled";
-					status = '<img src="/menu-icons/Canceled.png" />';
-				} else if (document.state == consts.Deferred) {
-					txtState = "Deferred";
-					status = '<img src="/menu-icons/Deferred.png" />';
-				} else if (document.state == consts.Detached) {
-					txtState = "Detached";
-					status = '<img src="/menu-icons/Detached.png" />';
-				}
-				
-				var image = 'No Image';
-				if (document.image == true) {
-					image = '<a href=#canShowImage data-identity=' + document._id + ' title="Click to view image">View Image</a>';
-				}
-				
-				var currStyle = styles[i % 2];
-				
-				var currObj = {
-					document : document,
-					image : image,
-					currStyle : currStyle,
-					txtState : txtState,
-					status : status,
-					actions : actions
-				};
-				
-				html += model.documentTableView(currObj);
-				
-			}
-		}
-		
-		html += '</table>';
-		
-		return html;
-		
+			$('#process_loading').html('');	
+			$("#filter-box").kendoGrid({
+                        
+						dataSource: {
+                            data: documentsData,
+                            pageSize: 5
+                        },
+						
+                        sortable: {
+                            mode: "single",
+                            allowUnsort: false
+                        },
+												                       
+                        pageable: true,
+                        scrollable: false,
+                       
+                        columns: [							
+                            {
+                                field: "Name",
+                                title: "Name",
+								template: "<div>#=Name#</div>"
+                            },
+                            {
+                                field: "Date",
+                                title: "Date"
+                            },
+                            {
+                                field: "Image",
+                                title: "Image",	
+								template: "<div>#=Image#</div>"
+								
+                            },
+							{
+                                field: "Other",
+                                title: "Other",
+								template: "<div>#=Other#</div>"
+                            },
+							{
+                                field: "Actions",
+                                title: "Actions",
+								template: "<div>#=Actions#</div>"
+                            }
+                        ]
+            });
+			
+		});		
 	},
-	
-	documentTableView : function (currObj) {
-		var html = "";
-		var document = currObj.document;
-		var image = currObj.image;
 		
-		html +=
-		'<li><tr class=' + currObj.currStyle + '>' +
-		'<td><a href="#document-descr" data-identity="' + document._id + '"><strong>' + document.name + '</strong></a>' +
-		
-		//hide div elemtn with description
-		'<div class="document-descr" id="' + document._id + '" style="display: none">' + document.descr + '</div>' + '</td>' +
-		
-		'<td>' + document.date + '</td>' +
-		'<td>' + image + '</td>' +
-		
-		'<td><strong>Time limit: </strong>' + document.timelimit + '<br/>' +
-		'<strong>Created by: </strong> ' + document.created + '<br/>' +
-		'<div><strong>Assigned to: </strong>' + document.assignedTo + '<br/>' +
-		'<div><strong>Status: </strong>' + currObj.status + currObj.txtState + '</td>' +
-		
-		'<td>' +
-		'<div id="document">' +
-		'<select id="doc_state">' +
-		'<option value="-1">-Select-</option>' +
-		'<option value="0">Reported</option>' +
-		'<option value="1">Repaired</option>' +
-		'<option value="2">Canceled</option>' +
-		'<option value="3">Deferred</option>' +
-		'<option value="4">Detached</option>' +
-		'</select>' +
-		'<input type="button" class="btnState" value="Apply" disabled=disable>' + currObj.actions +
-		'<input type="hidden" class="docId" value=' + document._id + ' /></td></div></tr>';
-		
-		return html;
-		
-	},
-	
 	document_state : function () {
 		
 		var selectedState;
@@ -663,7 +665,7 @@ var model = {
 		return {
 			
 			docType : 0,
-			container : $("#containerContent"),
+			container : $("#filter-box"),
 			project : 0,
 			userId : 0,
 			state : 0,
@@ -675,15 +677,8 @@ var model = {
 	FilterByProject : function (_filter) {
 		
 		var _view = 'GetDocumentsByProjectID?key=["' + _filter.project + '", ' + _filter.docType + ']';
+		model.documents(_view);
 		
-		$('#process_loading').html(app.ui.loader);
-		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
-			
-			var html = model.documentHtml(response);
-			_filter.container.html(html);
-			$('#process_loading').html('');
-			
-		});
 	},
 	
 	filterByUser : function (_filter) {
@@ -694,15 +689,9 @@ var model = {
 			_view = 'GetDocumentsByUserID?key=["' + _filter.userId + '", ' + _filter.docType + ']';
 		else
 			_view = 'filterByParams?key=["' + _filter.userId + '", "' + _filter.state + '", ' + _filter.docType + ']';
+				
+		model.documents(_view);
 		
-		$('#process_loading').html(app.ui.loader);
-		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
-			
-			var html = model.documentHtml(response);
-			_filter.container.html(html);
-			$('#process_loading').html('');
-			
-		});
 		
 	},
 	
@@ -712,14 +701,7 @@ var model = {
 			_filter.endDate = model.currDate();
 		
 		var _view = 'viewByDate?startkey=[' + _filter.docType + ', "' + _filter.startDate + '"]&endkey=[' + _filter.docType + ', "' + _filter.endDate + '"]';
-		$('#process_loading').html(app.ui.loader);
-		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
-			
-			var html = model.documentHtml(response);
-			_filter.container.html(html);
-			$('#process_loading').html('');
-			
-		});
+		model.documents(_view);
 	},
 	
 	FilterByStates : function (_filter) {
@@ -731,15 +713,7 @@ var model = {
 		else
 			_view = 'filterByParams?key=["' + _filter.userId + '", "' + _filter.state + '", ' + _filter.docType + ']';
 		
-		$('#process_loading').html(app.ui.loader);
-		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', _view], function (response) {
-			
-			var html = model.documentHtml(response);
-			_filter.container.html(html);
-			
-			$('#process_loading').html('');
-			
-		});
+		model.documents(_view);
 	},
 	
 	reloadPage : function (_page) {
@@ -751,7 +725,9 @@ var model = {
 	},
 	
 	refreshDocuments : function (_document) {
-		model.documents($('#containerContent'), _document.type);
+		var currUser = new system.currUser();
+		var _view = 'getDocumentsByOrgID?descending=true&key=["' + currUser.organization + '", ' + _document.type + ']';		
+		model.documents(_view);
 	},
 	
 	orgValidation : function (orgName) {

@@ -16,13 +16,12 @@ var system = {
         {
             item =  
             '<li>' +      
-        '<a href="#pm-settings" id="settings" title="Settings"><span class="meta"><img src="menu-icons/work.png" /><br/>Settings</span></a>' +      
-        '</li>';   
+			'<a href="#pm-settings" id="settings" title="Settings"><span class="meta"><img src="menu-icons/work.png" /><br/>Settings</span></a>' +      
+			'</li>';   
         }
             
         var headerMenu = ' <ul id="nav" class="nav-main"> ' +       
-		
-		
+				
 		'<li>' +      
         '<a href="index.html" id="home" title="home"><span class="meta"><img src="menu-icons/home.png" /><br/>Home</span></a>' +      
 
@@ -33,14 +32,11 @@ var system = {
         '<li  id="projects" title="add new project"><a href="#pm-projects">projects</a></li> ' +      
         '<li  id="tasks" title="add new task"><a href="#pm-tasks">tasks</a></li> ' +      
         '<li  id="bugs" title="add new bug"><a href="#pm-bugs">bugs</a></li> ' +      
-        //'<li  id="Reports"><a href="#pm-reports" >Reports</a></li> ' +      
-       // '<li  id="Planings"><a href="#pm-planning" id="planning">Planning</a></li>   ' +      
         '</ul>' +      
         '</li>' +      
 
         '<li>' +      
         '<a href="#pm-register" id="register" title="Registration"><span class="meta"><img src="menu-icons/register.png" /><br/>Registration</span></a>' +      
-
         '</li>' +   
 		
 
@@ -68,10 +64,7 @@ var system = {
         
     init: function() {
 		
-        var consts = new model.consts();
-
-        var currUser;
-            
+        var consts = new model.consts();                  
         system.headerMenu();
             
         if ($.cookie('user.Id') != null) {
@@ -87,16 +80,8 @@ var system = {
             $('tasks').show();
             $('#logOut').show();
 
-            $('label').mouseenter(function() {
-                $(this).find('span').show();
-            });
-
-            $('label').mouseleave(function() {
-                $(this).find('span').hide();
-            });
-
             model.document_state();			
-			currUser = system.currUser();
+			var currUser = system.currUser();
 			
             if (currUser != null) {
 
@@ -142,6 +127,8 @@ var system = {
 				'</div>	'+			
 				'</div>'+
 				'</filedset>'+
+				'<div style="padding: 25px;" id="process_loading"></div>'+
+				'<button style="margin: 10px;" type="button" id="btnShowModalForm"></button>'+
 				'</div>';
 
 				
@@ -152,8 +139,7 @@ var system = {
 				system.initProjects($('#filterByProject'));
 											
 				$("#filterByState").msDropDown(); 
-				
-										
+													
 				$.get('/ui/pm-filter.html', function(login_data) {
 					$('#containerSite').html(login_data);
 

@@ -1,20 +1,23 @@
-<div style="padding: 25px;" id="process_loading"></div>
-<button style="float: left; margin: 10px;" type="button" id="btnShowModalForm"></button>
-<script type="text/javascript">
+<script>
     $(function () {
-
+		
+		
         var file = new model.file();
         var consts = new model.consts();
         var currUser = system.currUser();
         var segment = $.url(location).fsegment(1);
         _docType = getDocTypeByUrlSegment();
-
+		
+		
+		
         var element = {
             _file: file,
             _type: _docType
         }
 
-
+		
+		var _view = 'getDocumentsByOrgID?descending=true&key=["' + currUser.organization + '", ' + _docType + ']';
+		
         $('#btnShowModalForm').hide();
         if (currUser.position == consts.admin) {
             $('#btnShowModalForm').show();
@@ -22,7 +25,8 @@
                 model.ShowModalForm(element);
             })
         }
-        model.documents($('#containerContent'), _docType, false);
+				
+        model.documents(_view);
 		
         $("#DateFrom").datepick({
             showTrigger: '#calImg'
@@ -36,7 +40,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() <= 0) {
-                model.documents($('#containerContent'), _docType, false);
+                model.documents(_view);
             } else {
                 var docFilter = new model.documentFilter();
                 docFilter.docType = _docType;
@@ -62,7 +66,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() <= 0) {
-                model.documents($('#containerContent'), _docType, false);
+                model.documents(_view);
             } else {
                 var consts = new model.consts();
                 var docFilter = new model.documentFilter();
@@ -77,7 +81,7 @@
             event.stopImmediatePropagation();
             var _docType = getDocTypeByUrlSegment();
             if ($(this).val() < 0) {
-                model.documents($('#containerContent'), _docType, false);
+                model.documents(_view);
             } else {
                 var consts = new model.consts();
                 var docFilter = new model.documentFilter();
