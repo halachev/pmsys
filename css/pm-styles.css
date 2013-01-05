@@ -19,6 +19,7 @@ body
     font-family: 'Droid Sans' , sans-serif;
     font-size: 0.7em;
     color: #2d2d2d;
+	
 }
 
 
@@ -121,6 +122,7 @@ h6
     background-color: #fff;
     box-shadow: 0 0 15px #2d2d2d;
     position: relative;
+	
 }
 
 
@@ -134,6 +136,7 @@ h6
     text-decoration: none;
     color: #2d2d2d;
     background: #f5f5f5 url('/logos/pmsys.png') left center no-repeat;
+	
 }
 
 #main-header-text 
