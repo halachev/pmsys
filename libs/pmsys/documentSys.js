@@ -351,9 +351,7 @@ var system = {
 					  
 						Id: doc._id,
 						Organization: doc.Organization,
-						Date: doc.Date,            
-						Email : doc.Email						
-						
+						Date: doc.Date        						
 					});
 			    
 			  			
@@ -383,10 +381,6 @@ var system = {
                             {
                                 field: "Date",
                                 title: "Date"
-                            },
-                            {
-                                field: "Email",
-                                title: "Email"
                             }
                         ]
             });	
@@ -437,7 +431,8 @@ var system = {
                         columns: [							
                             {
                                 field: "documentName",
-                                title: "Name"
+                                title: "Name",
+								width: 200
 								
                             },
                             {

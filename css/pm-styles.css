@@ -366,9 +366,10 @@ table th
 	
     width: 540px;
 	height: auto;
-	padding: 20px;
-    font: 14px Arial, Helvetica, sans-serif;
+	padding: 20px;		
+    font-size: 14px;
     text-decoration: none;
+	position: relative;
 }
 
 
@@ -408,6 +409,26 @@ div.main-box:hover p
 	position: absolute;	
 	opacity: 0.8;
     
+}
+
+.pm-info-box
+{	
+
+	width: 240px;
+	padding: 10px;  	
+	margin: 10px;
+	position: relative;
+	background: #2d2d2d;
+	color: #f5f5f5;		
+}
+
+.pm-info-box img
+{
+    	
+	padding: 2px;  
+	position: relative;
+	background: #fff;
+	
 }
 
 /* -------------------------------------- */
