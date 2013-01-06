@@ -1,3 +1,6 @@
+<div style="position: fixed; top: 220px; margin: -100px">
+<button type="button" id="btnShowModalForm"></button>				
+</div>
 <script>
     $(function () {
 		
@@ -7,9 +10,7 @@
         var currUser = system.currUser();
         var segment = $.url(location).fsegment(1);
         _docType = getDocTypeByUrlSegment();
-		
-		
-		
+				
         var element = {
             _file: file,
             _type: _docType
@@ -21,8 +22,8 @@
         $('#btnShowModalForm').hide();
         if (currUser.position == consts.admin) {
             $('#btnShowModalForm').show();
-            $('#btnShowModalForm').click(function () {
-                model.ShowModalForm(element);
+            $('#btnShowModalForm').click(function () {               
+				model.ShowModalForm(element);
             })
         }
 				

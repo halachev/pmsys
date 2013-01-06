@@ -530,7 +530,8 @@ var model = {
                         pageable: true,
                         scrollable: false,
                        
-                        columns: [							
+                        columns: [		
+							
                             {
                                 field: "Name",
                                 title: "Name",

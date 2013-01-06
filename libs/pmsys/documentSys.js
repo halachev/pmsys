@@ -88,19 +88,19 @@ var system = {
 				$('#Login').show();
 					
 				var filterbox = 
-				'<div class="filter-box">' + 
-			
-				'<fieldset>'+
-				'<h2>Document filter</h2>'+
 				
+				'<div class="filter-box">' + 
+				
+				'<fieldset>'+
+				'<legend style="color: red;">Document filter:</legend>' + 
+								
 				'<span id="projectFilter">' + 
 				'<label for="filterByProject">'+
 				'<br/>'+
-				'Projects<select id="filterByProject" style="width:160px;"></select> </label>' + 
+				' Projects <select id="filterByProject" style="width:160px;"></select> </label>' + 
 				'</span>' + 
 				
-				'States'+
-
+				' States '+
 				
 				'<select id="filterByState" style="width:120px;">'+
 				'<option value="-1">-All-</option>'+
@@ -111,24 +111,19 @@ var system = {
 				'<option value="4" data-image="menu-icons/Detached.png">Detached</option>'+
 				'</select>'+
 				
-				'Users<label for="filterByUser"><select id="filterByUser" style="width:160px;"></select> </label>'+
+				' Users <label for="filterByUser"><select id="filterByUser" style="width:160px;"></select> </label>'+
 				
 				'From<label for="DateFrom">'+
-				'<input type="text" size="10" id="DateFrom" />'+
+				'<input style="margin: 2px; type="text" size="10" id="DateFrom" />'+
 				'</label>'+
 				
-				'To<label for="DateTo">'+
-				'<input type="text" size="10" id="DateTo" />'+
+				'To<label for="DateTo" >'+
+				'<input style="margin: 2px; type="text" size="10" id="DateTo" />'+
 				'</label>'+
 				
-				'<input type="button" id="btnFilterByDate" value="OK" />'+
-				'</div>	'+
+				'<input style="margin: 10px;" type="button" id="btnFilterByDate" value="OK" />'+
 				
-				'</div>	'+			
-				'</div>'+
 				'</filedset>'+
-				'<div style="padding: 25px;" id="process_loading"></div>'+
-				'<button style="margin: 10px;" type="button" id="btnShowModalForm"></button>'+
 				'</div>';
 
 				
@@ -139,10 +134,10 @@ var system = {
 				system.initProjects($('#filterByProject'));
 											
 				$("#filterByState").msDropDown(); 
-													
+					
+				//load projects document by defult	
 				$.get('/ui/pm-filter.html', function(login_data) {
 					$('#containerSite').html(login_data);
-
 				});
 								
              
