@@ -24,7 +24,7 @@ if you have already registered as a organisation please choose user button!
 		function organizaionModalForm()
 		{
 		  $.alert('Organization', '<p><img src="images/icon_first_step.png" /></p>'
-			 
+			+ '<div id="org_process_loading"></div>'
 			+ '<p>To get started, please provide your<br />'
 			+ 'organization name, email and choose a register.'
 			+ '<br />'
@@ -52,8 +52,8 @@ if you have already registered as a organisation please choose user button!
 		function userModalForm() {
 		
 			 $.alert('Organization', '<p><img src="images/icon_second_step.png" /></p>'
-				 
-				+ '<p style="padding: 5px;color: red;">Are you ready to be a part of PMSys?</p><br />'
+				+ '<div id="user_process_loading"></div>' 
+				+ '<p style="padding: 5px;color: red;">Are you ready to be a part of PM Sys?</p><br />'
 				+ '<label for="username"> *Username:</label>'
 				+ '<br />'
 				+ '<input type="text" class="dialog_input_text" id="username" />'
@@ -190,7 +190,7 @@ if you have already registered as a organisation please choose user button!
 
 				var fromAddress = "pmsystem.mehmedov@gmail.com";
 				var toAddress = $('#orgEmail').val();
-				var subject = "PMSys - confirm your organization!";
+				var subject = "PM Sys - confirm your organization!";
 
 				var organization = $('#orgName').val();
 				var SHA = SHA256(organization);
@@ -198,15 +198,18 @@ if you have already registered as a organisation please choose user button!
 				var body = '<html><body>Dear <b>'
 					+ organization + ' </b> , ' 
 					+ 'Thank You for registration! <br/>' 
-					+ 'We are thrilled you have chosen PMSys to manage your organization. <br/>' 
+					+ 'We are thrilled you have chosen PM Sys to manage your organization. <br/>' 
 					+ '<br/>activate your organization: http://pmsys.org/?id=' 
 					+ SHA + '<br/>your secret code is: ' 
 					+ SHA + '<br/><br/><a href="pmsys.org">PMsys.org</a><br/>' 
-					+ '<br/>PMSys administrator © 2012 </html></body>';
+					+ '<br/>PM Sys administrator © 2012 </html></body>';
 
 				var params = [fromAddress, toAddress, subject, body, organization, toAddress, SHA, true];
 
+				$('#btnOrgRegister').attr("disabled", "disabled");
+				$('#org_process_loading').html(app.ui.working);
 				JsonBridge.execute('MailService.MailService', 'SendMail', params, function(response) {
+					$('#org_process_loading').html('');					
 					$.alert('Alert', response.result);
 				});
 
@@ -246,12 +249,14 @@ if you have already registered as a organisation please choose user button!
 				} else
 					$('#UserMessage').hide();
 
+			    $('#user_process_loading').html(app.ui.working);
 				//check for valid secret code
 				JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getSecretCode?key="' + user.secret_code + '"'], function(response) {
 
 					var data = JSON.parse(response.result);
 
 					if (data.rows == "") {
+						$('#user_process_loading').html('');
 						$.alert('Warning', 'invalid secret code!');
 						return false;
 					}
@@ -266,32 +271,33 @@ if you have already registered as a organisation please choose user button!
 						JsonBridge.execute('WDK.API.CouchDb', 'createDocument', ['pmsystem', JSON.stringify(user)], function(data) {
 
 							$.cookie('user.Id', data.result.Id);
-							$.alert('access ', user.username + ' Welcome to PMSystem', true);
+							$.alert('access ', user.username + ' Welcome to PM Sys', true);
 
 						});
 
 						//send email to user
 						var fromAddress = "pmsystem.mehmedov@gmail.com";
 						var toAddress = user.email;
-						var subject = "administrator - welcome to PMSys!";
+						var subject = "administrator - welcome to PM Sys!";
 
 						var body = '<html><body>Dear <b>' 
 							+ user.username + ' </b> , ' 
 							+ 'Thank you <br/>' 
-							+ 'We are thrilled you have chosen PMSys to manage your organization. <br/>' 
+							+ 'We are thrilled you have chosen PM Sys to manage your organization. <br/>' 
 							+ '<b>username:</b> ' 
 							+ user.username + '<br/><b>password: </b>' 
 							+ user.password + '<br/><br/><a href="pmsys.org">PMsys.org</a><br/>' 
-							+ '<br/>PMSys administrator © 2012 </html></body>';
+							+ '<br/>PM Sys administrator © 2012 </html></body>';
 
 						var params = [fromAddress, toAddress, subject, body, "", "", "", false];
 
 						JsonBridge.execute('MailService.MailService', 'SendMail', params, function(response) {
-							// email was send
+							$('#user_process_loading').html('');
 						});
 
 					} else {
-						$.alert('Warning', 'invalid secret code or organization!');
+						$('#user_process_loading').html('');
+						$.alert('Warning', 'Invalid secret code or organization!');
 						return false;
 					}
 

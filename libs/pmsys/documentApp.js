@@ -24,6 +24,10 @@ var app = {
             return 'Loading ...<br/> <img src="/menu-icons/ajax-loader.gif" alt="Loading..." />';
         },
 
+		working : function() {
+            return 'Working please wait ...<br/> <img src="/menu-icons/ajax-loader.gif" alt="Working please wait..." />';
+        },
+		
         avatar : function() {
             return '<img src="/menu-icons/user_avatar.png" />'
         },
