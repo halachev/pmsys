@@ -7,7 +7,7 @@ $.alert = function(title, msg, login, buttons) {
     var c = $('<div ></div>');
     $(document).append(c);
     c.html('<span>' + msg + '</span>');
-    system.userById();
+	
     c.dialog({
         autoOpen : false,
         width: "auto",
