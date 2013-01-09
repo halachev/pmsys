@@ -1,3 +1,4 @@
+<p><button type="button" id="btnShowModalForm"></button><p>
 <script>
     $(function () {
 				
@@ -19,7 +20,7 @@
         if (currUser.position == consts.admin) {
             $('#btnShowModalForm').show();
             $('#btnShowModalForm').click(function (event) {   
-				event.stopImmediatePropagation();			
+						
 				model.ShowModalForm(element);				
             });
 			

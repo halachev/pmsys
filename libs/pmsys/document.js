@@ -515,7 +515,15 @@ var model = {
 			}
 			
 			$('#process_loading').html('');	
-			$("#filter-box").kendoGrid({
+			
+			model.kendoGrid(documentsData);
+			
+		});		
+	},
+		
+	kendoGrid: function (documentsData)
+	{
+		$("#filter-box").kendoGrid({
                         
 						dataSource: {
                             data: documentsData,
@@ -559,10 +567,8 @@ var model = {
                             }
                         ]
             });
-			
-		});		
 	},
-		
+	
 	document_state : function () {
 		
 		var selectedState;

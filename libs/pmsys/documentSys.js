@@ -91,7 +91,7 @@ var system = {
 				var filterbox = 
 				
 				'<div class="filter-box">' + 
-				'<p><button type="button" id="btnShowModalForm"></button><p>' +
+				
 				'<fieldset>'+
 				'<legend style="color: red;">Document filter:</legend>' + 
 								
@@ -135,9 +135,11 @@ var system = {
 				system.initProjects($('#filterByProject'));
 											
 				$("#filterByState").msDropDown(); 
+				
 					
 				//load projects document by defult	
 				$.get('/ui/pm-filter.html', function(login_data) {
+					
 					$('#containerSite').html(login_data);					
 					
 				});
