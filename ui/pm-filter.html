@@ -1,10 +1,6 @@
-<div style="position: fixed; top: 420px; margin: -100px">
-<button type="button" id="btnShowModalForm"></button>				
-</div>
 <script>
     $(function () {
-		
-		
+				
         var file = new model.file();
         var consts = new model.consts();
         var currUser = system.currUser();
@@ -22,9 +18,11 @@
         $('#btnShowModalForm').hide();
         if (currUser.position == consts.admin) {
             $('#btnShowModalForm').show();
-            $('#btnShowModalForm').click(function () {               
-				model.ShowModalForm(element);
-            })
+            $('#btnShowModalForm').click(function (event) {   
+				event.stopImmediatePropagation();			
+				model.ShowModalForm(element);				
+            });
+			
         }
 				
         model.documents(_view);

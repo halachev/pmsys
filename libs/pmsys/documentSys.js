@@ -91,7 +91,7 @@ var system = {
 				var filterbox = 
 				
 				'<div class="filter-box">' + 
-				
+				'<p><button type="button" id="btnShowModalForm"></button><p>' +
 				'<fieldset>'+
 				'<legend style="color: red;">Document filter:</legend>' + 
 								
@@ -122,13 +122,13 @@ var system = {
 				'<input style="margin: 2px; type="text" size="10" id="DateTo" />'+
 				'</label>'+
 				
-				'<input style="margin: 10px;" type="button" id="btnFilterByDate" value="OK" />'+
-				
+				'<input style="margin: 10px;" type="button" id="btnFilterByDate" value="OK" />'+				
 				'</filedset>'+
-				'</div>';
-
 				
+				'</div>';
+							
 				$('#filter-box').html(filterbox);
+				
 				$('#projectFilter').hide();
 				
 				system.initUsers($('#filterByUser'));
@@ -138,7 +138,8 @@ var system = {
 					
 				//load projects document by defult	
 				$.get('/ui/pm-filter.html', function(login_data) {
-					$('#containerSite').html(login_data);
+					$('#containerSite').html(login_data);					
+					
 				});
 								
              
