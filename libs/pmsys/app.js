@@ -187,5 +187,17 @@ $(function() {
         $(window).scrollTop(0);
     });
 	
+
+	
+	$('#pm-video-click').click( function () {
+		
+		var isVisible = $('#pm-video').is(':visible');		
+		if (isVisible)
+			$('#pm-video').hide();
+		else
+			$('#pm-video').show();
+	
+	});
+	
 	
 });

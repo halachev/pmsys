@@ -430,6 +430,46 @@ div.main-box:hover p
 	background: #fff;
 	
 }
+#pm-video-text
+{
+	padding: 20px; 
+	margin-left: auto; 
+	margin-right: auto; 
+	background-color: #2d2d2d;
+	
+}
+
+#pm-video-text h2
+{
+	
+	width: 150px;
+	color: #fff;
+
+	
+}
+
+#pm-video-text a
+{
+    
+	text-decoration: none;
+	
+}
+
+#pm-video
+{   
+	padding: 20px; 
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 550px;	
+    display: none;		
+	border-bottom: 1px double #ccc;
+	border-top: 1px double #ccc;
+	border-left:1px double #ccc;
+	border-right:1px double #ccc;
+	border-radius: 15px 15px 15px 15px;    
+	background: #2d2d2d;	
+}
+
 
 /* -------------------------------------- */
 

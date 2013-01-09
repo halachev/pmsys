@@ -70,7 +70,8 @@ var system = {
         if ($.cookie('user.Id') != null) {
 
             system.headerMenu(true);
-			
+			$('#pm-video-text').hide();
+			$('#pm-video').hide();
 			$('#filterbox').hide();
             $('#MainFrame').hide();
             $('#login').hide();
