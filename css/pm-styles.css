@@ -129,8 +129,8 @@ h6
 #MainHeader
 {
 	
-    width: 970px;
-    height: 70px;
+    width: 950px;
+    height: 60px;
     padding: 15px;
     font: 14px Arial, Helvetica, sans-serif;
     text-decoration: none;
@@ -139,19 +139,23 @@ h6
 	
 }
 
+
+#MainHeader:hover
+{	
+    opacity: 0.6;		
+	
+}
+
 #main-header-text 
 {
 	float: right;    
-	padding: 10px;		
+	padding: 15px;		
 	color: #2d2d2d; 
 	font-size: 12px;	
-	background-color: #2d2d2d;
-	text-decoration: none;	
-	color: #fff;
-	border-radius: 15px 15px 0 0;
-    
+	color: #2d2d2d;
+	text-decoration: none;			
+    border-top: 1px solid #aaa;
 }
-
 
 #MainFooter
 {
@@ -161,7 +165,9 @@ h6
     box-shadow: 0 -3px 3px 0 rgba(0,0,0,.15);
     font-size: 1em;
     color: #fff;
+	
 }
+
 
 #MainFooter .footerLinkContainerWrapper
 {
@@ -174,6 +180,7 @@ h6
     display: block;
     _zoom: 1;
     clear: both;
+	
 }
 
 #MainFooter .footerLinkContainerWrapper .footerLinkContainer
@@ -202,6 +209,14 @@ h6
 #MainFooter .footerLinkContainerWrapper .footerLinkContainer a
 {
     color: #fff;
+	text-decoration: none;	
+	
+}
+
+#MainFooter .footerLinkContainerWrapper .footerLinkContainer a:hover
+{
+    opacity: 0.6;
+	margin: 1px;
 	
 }
 
@@ -227,6 +242,7 @@ h6
     height: 70px;
     width: 100%;
     background-color: #21242d;
+	
 }
 
 #MainFooter #SocialNetworks
@@ -435,7 +451,7 @@ div.main-box:hover p
 	padding: 20px; 
 	margin-left: auto; 
 	margin-right: auto; 
-	background-color: #2d2d2d;
+	background-color: #f5f5f5;
 	
 }
 
@@ -443,16 +459,22 @@ div.main-box:hover p
 {
 	
 	width: 150px;
-	color: #fff;
-
+	color: #000;
 	
+}
+#pm-video-text h2:hover
+{
+	opacity: 0.6;
+}
+
+#pm-video-text a:hover
+{
+	opacity: 0.6;
 }
 
 #pm-video-text a
-{
-    
-	text-decoration: none;
-	
+{    
+	text-decoration: none;	
 }
 
 #pm-video
@@ -467,7 +489,22 @@ div.main-box:hover p
 	border-left:1px double #ccc;
 	border-right:1px double #ccc;
 	border-radius: 15px 15px 15px 15px;    
-	background: #2d2d2d;	
+	background: #2d2d2d;
+    position: relative;	
+}
+
+
+#social-icons
+{
+	padding: 20px;
+	width: 500px;
+    margin: 10px;	
+	
+}
+
+#social-icons:hover
+{
+	opacity: 0.6;		
 }
 
 
