@@ -88,10 +88,36 @@ var system = {
 
 				$('#Login').show();
 					
-				var filterbox = 
+								
+				//load projects document by defult	
+				$.get('/ui/pm-filter.html', function(login_data) {
+					
+					$('#containerSite').html(login_data);					
+					
+				});
+					
+             
+            }
+
+			} else {
+
+				$('#register').show();
+				$('#login').show();
+				$('#register_user').show();
+				$('#projects').hide();
+				$('#tasks').hide();
+				$('#bugs').hide();
+				$('#logOut').hide();
+			}
+
+    },
+	
+	showFilter: function () {
+		
+		var filterbox = 
 				
 				'<div class="filter-box">' + 
-				
+				'<p style="float: left"; padding: 5px;><button type="button" id="btnShowModalForm"></button><p>'+
 				'<fieldset>'+
 				'<legend style="color: red;">Document filter:</legend>' + 
 								
@@ -127,38 +153,17 @@ var system = {
 				
 				'</div>';
 							
-				$('#filter-box').html(filterbox);
+		$('#containerSite').html(filterbox);
 				
-				$('#projectFilter').hide();
+		$('#projectFilter').hide();
 				
-				system.initUsers($('#filterByUser'));
-				system.initProjects($('#filterByProject'));
+		system.initUsers($('#filterByUser'));
+		system.initProjects($('#filterByProject'));
 											
-				$("#filterByState").msDropDown(); 
-				
-					
-				//load projects document by defult	
-				$.get('/ui/pm-filter.html', function(login_data) {
-					
-					$('#containerSite').html(login_data);					
-					
-				});
-								
-             
-            }
+		$("#filterByState").msDropDown(); 
 
-			} else {
-
-				$('#register').show();
-				$('#login').show();
-				$('#register_user').show();
-				$('#projects').hide();
-				$('#tasks').hide();
-				$('#bugs').hide();
-				$('#logOut').hide();
-			}
-
-    },
+		
+	},
 	
     initUsers: function (_element) {
 		

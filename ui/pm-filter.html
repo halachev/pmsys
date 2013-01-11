@@ -1,18 +1,19 @@
-<p><button type="button" id="btnShowModalForm"></button><p>
 <script>
     $(function () {
-				
+			
         var file = new model.file();
         var consts = new model.consts();
         var currUser = system.currUser();
         var segment = $.url(location).fsegment(1);
+		
+		system.showFilter();
+		
         _docType = getDocTypeByUrlSegment();
 				
         var element = {
             _file: file,
             _type: _docType
         }
-
 		
 		var _view = 'getDocumentsByOrgID?descending=true&key=["' + currUser.organization + '", ' + _docType + ']';
 		
@@ -25,8 +26,8 @@
             });
 			
         }
-				
-        model.documents(_view);
+			
+		model.documents(_view);
 		
         $("#DateFrom").datepick({
             showTrigger: '#calImg'

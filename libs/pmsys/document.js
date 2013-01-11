@@ -523,7 +523,7 @@ var model = {
 		
 	kendoGrid: function (documentsData)
 	{
-		$("#filter-box").kendoGrid({
+		$("#containerSite").kendoGrid({
                         
 						dataSource: {
                             data: documentsData,
@@ -672,7 +672,7 @@ var model = {
 		return {
 			
 			docType : 0,
-			container : $("#filter-box"),
+			container : $("#containerSite"),
 			project : 0,
 			userId : 0,
 			state : 0,
