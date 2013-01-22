@@ -16,5 +16,10 @@ D:\Web Projects\ pm-sys --username pmsystem.mehmedov@gmail.com\pmsys.org\pmsys.o
 D:\Web Projects\ pm-sys --username pmsystem.mehmedov@gmail.com\pmsys.org\pmsys.org\obj\Debug\pmsys.org.pdb
 D:\Web Projects\pmsys.org\pmsys.org\bin\pmsys.org.dll
 D:\Web Projects\pmsys.org\pmsys.org\bin\pmsys.org.pdb
+D:\Web Projects\pmsys.org\pmsys.org\bin\MailService.pdb
+D:\Web Projects\pmsys.org\pmsys.org\bin\WDK.API.CouchDb.pdb
+D:\Web Projects\pmsys.org\pmsys.org\bin\WDK.API.JsonBridge.pdb
+D:\Web Projects\pmsys.org\pmsys.org\bin\WDK.ContentManagement.Router.pdb
+D:\Web Projects\pmsys.org\pmsys.org\obj\Debug\pmsys.org.csprojResolveAssemblyReference.cache
 D:\Web Projects\pmsys.org\pmsys.org\obj\Debug\pmsys.org.dll
 D:\Web Projects\pmsys.org\pmsys.org\obj\Debug\pmsys.org.pdb
