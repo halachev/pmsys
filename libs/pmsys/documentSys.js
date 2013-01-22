@@ -69,9 +69,8 @@ var system = {
             
         if ($.cookie('user.Id') != null) {
 
-            system.headerMenu(true);
-			$('#pm-video-text').hide();
-			$('#pm-video').hide();
+            system.headerMenu(true);			
+			$('#MainHeader').hide();
 			$('#filterbox').hide();
             $('#MainFrame').hide();
             $('#login').hide();
@@ -80,6 +79,7 @@ var system = {
             $('#projects').show();
             $('tasks').show();
             $('#logOut').show();
+			
 
             model.document_state();			
 			var currUser = system.currUser();
