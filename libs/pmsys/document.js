@@ -474,7 +474,8 @@ var model = {
 					
 					var image = 'No Image';
 					if (document.image == true) {
-						image = '<a href=#canShowImage data-identity=' + document._id + ' title="Click to view image">View Image</a>';
+						image = '<a href="#canShowImage" data-identity=' 
+						+ document._id + ' title="Click to view image">View Image</a><div class="imgBox' + document._id + '" style="display: none"></div>';
 					}
 					
 					

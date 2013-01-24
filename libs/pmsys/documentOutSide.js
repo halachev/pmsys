@@ -112,32 +112,40 @@ $("a[href=#document-descr]").live("click", function () {
     var _id = $(this).data("identity");
     var Isvisible = $('#' + _id).is(':visible');
     if (Isvisible)
-        $('#' + _id).fadeOut(500);
+        $('#' + _id).fadeOut(100);
     else
-        $('#' + _id).fadeIn(500);
+        $('#' + _id).fadeIn(100);
 
 
 });
 
 
 $("a[href=#canShowImage]").live("click", function() {
-
-    var _id = $(this).data("identity");
-		
-	JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getImageByID?key="' + _id + '"'], function(response) {
-
-            
-            var data = JSON.parse(response.result);
-            var document = data.rows[0].value;
-			
-			location = document.image;
-			
-			return false;
-			
-        });
 	
-   
-
+    var _id = $(this).data("identity");
+	var Isvisible = $('.imgBox' + _id).is(':visible');
+	
+	if (Isvisible)
+		$('.imgBox' + _id).fadeOut(500);
+	else
+	{	
+		$('#process_loading').html(app.ui.loader);	
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getImageByID?key="' + _id + '"'], function(response) {
+				
+				var data = JSON.parse(response.result);
+				var document = data.rows[0].value;
+				
+				$('.imgBox' + _id).html('<a class="imgBox" href="'+ document.image + '" target="_blank"><img src='+ document.image + ' width="75" /></a>');
+				$('.imgBox' + _id).fadeIn(100);
+				
+				$('#process_loading').html('');	
+				return false;
+				
+			});
+			
+			
+	}
+  
 });
 
 
