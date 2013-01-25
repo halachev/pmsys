@@ -1,154 +1,144 @@
 /* http://pmsys.org/
-   version 1.0
-   Written by Nurietin Mehmedov (01.08.2012).  
-   Please attribute the author if you use it. */
-   
-$.alert = function(title, msg, login, buttons) {
-    var c = $('<div ></div>');
-    $(document).append(c);
-    c.html('<span>' + msg + '</span>');
-	
-    c.dialog({
-        autoOpen : false,
-        width: "auto",
-        height: "auto",
-        resize: "auto",
-        modal : true,
-        closeOnEscape: false,
-        //show : 'fadeIn',
-        closeText : 'Close',        
-        resizable : false,
-        buttons : {
-            'Close' : function() {
-                
-                $(this).dialog('close');
-                c.remove();               
-                if (login)
-                    window.location.href = "index.html";
-            }
-        },
-        title : title
-    });
+version 1.0
+Written by Nurietin Mehmedov (01.08.2012).
+Please attribute the author if you use it. */
 
-    if (buttons != null || buttons != undefined) {
-        c.dialog('option', 'buttons', buttons);
-    }
-    
-    c.dialog('open');
-    
+$.alert = function (title, msg, login, buttons) {
+	var c = $('<div ></div>');
+	$(document).append(c);
+	c.html('<span>' + msg + '</span>');
+	
+	c.dialog({
+		autoOpen : false,
+		width : "auto",
+		height : "auto",
+		resize : "auto",
+		modal : true,
+		closeOnEscape : false,
+		//show : 'fadeIn',
+		closeText : 'Close',
+		resizable : false,
+		buttons : {
+			'Close' : function () {
+				
+				$(this).dialog('close');
+				c.remove();
+				if (login)
+					window.location.href = "index.html";
+			}
+		},
+		title : title
+	});
+	
+	if (buttons != null || buttons != undefined) {
+		c.dialog('option', 'buttons', buttons);
+	}
+	
+	c.dialog('open');
+	
 };
 
 //delete user by id
-$("#lastProjects").live("mouseenter", function() {
-    $(this).find('.spanche').show('fast');
-
-    $('#lastProjects').mouseleave(function() {
-        $(this).find('.spanche').hide('fast');
-    });
-
+$("#lastProjects").live("mouseenter", function () {
+	$(this).find('.spanche').show('fast');
+	
+	$('#lastProjects').mouseleave(function () {
+		$(this).find('.spanche').hide('fast');
+	});
+	
 });
 
 //delete user by id
-$(".delUser").live("click", function() {
-    var _id = $(this).data("identity");
-
-    var response = confirm("are you sure to remove this profile?");
-    if (response) {
-        JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getDocumentByID?key="' + _id + '"'], function(response) {
-
-            if (response.result == "")
-                return;
-            var data = JSON.parse(response.result);
-            var document = data.rows[0].value;
-
-            model.delDocument(document, true);
-
-        });
-
-    }
+$(".delUser").live("click", function () {
+	var _id = $(this).data("identity");
+	
+	var response = confirm("are you sure to remove this profile?");
+	if (response) {
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getDocumentByID?key="' + _id + '"'], function (response) {
+			
+			if (response.result == "")
+				return;
+			var data = JSON.parse(response.result);
+			var document = data.rows[0].value;
+			
+			model.delDocument(document, true);
+			
+		});
+		
+	}
 });
 
 //delete document by id
-$("a[href=#canDelDocument]").live("click", function() {
-    var _id = $(this).data("identity");
-    var response = confirm("are you sure to delete this document?");
-    if (response) {
-        JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getDocumentByID?key="' + _id + '"'], function(response) {
-
-            if (response.result == "")
-                return;
-            var data = JSON.parse(response.result);
-            var document = data.rows[0].value;
-
-            model.delDocument(document, false);
-
-        });
-
-    }
+$("a[href=#canDelDocument]").live("click", function () {
+	var _id = $(this).data("identity");
+	var response = confirm("are you sure to delete this document?");
+	if (response) {
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getDocumentByID?key="' + _id + '"'], function (response) {
+			
+			if (response.result == "")
+				return;
+			var data = JSON.parse(response.result);
+			var document = data.rows[0].value;
+			
+			model.delDocument(document, false);
+			
+		});
+		
+	}
 });
 
-$("a[href=#canEditDocument]").live("click", function() {
-
-    var _id = $(this).data("identity");
-
-    model.setModalForm(_id, false);
-    app.ui.defaultImage();
-
+$("a[href=#canEditDocument]").live("click", function () {
+	
+	var _id = $(this).data("identity");
+	
+	model.setModalForm(_id, false);
+	app.ui.defaultImage();
+	
 });
 
-
-$("a[href=#canCopyDocument]").live("click", function() {
-
-    var _id = $(this).data("identity");
-
-    model.setModalForm(_id, true);
-    app.ui.defaultImage();
-
+$("a[href=#canCopyDocument]").live("click", function () {
+	
+	var _id = $(this).data("identity");
+	
+	model.setModalForm(_id, true);
+	app.ui.defaultImage();
+	
 });
-
 
 $("a[href=#document-descr]").live("click", function () {
-
-    var _id = $(this).data("identity");
-    var Isvisible = $('#' + _id).is(':visible');
-    if (Isvisible)
-        $('#' + _id).fadeOut(100);
-    else
-        $('#' + _id).fadeIn(100);
-
-
+	
+	var _id = $(this).data("identity");
+	var Isvisible = $('#' + _id).is(':visible');
+	if (Isvisible)
+		$('#' + _id).fadeOut(100);
+	else
+		$('#' + _id).fadeIn(100);
+	
 });
 
-
-$("a[href=#canShowImage]").live("click", function() {
+$("a[href=#canShowImage]").live("click", function () {
 	
-    var _id = $(this).data("identity");
+	var _id = $(this).data("identity");
 	var Isvisible = $('.imgBox' + _id).is(':visible');
 	
 	if (Isvisible)
 		$('.imgBox' + _id).fadeOut(500);
-	else
-	{	
-		$('#process_loading').html(app.ui.loader);	
-		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getImageByID?key="' + _id + '"'], function(response) {
-				
-				var data = JSON.parse(response.result);
-				var document = data.rows[0].value;
-				
-				$('.imgBox' + _id).html('<a class="imgBox" href="'+ document.image + '" target="_blank"><img src='+ document.image + ' width="75" /></a>');
-				$('.imgBox' + _id).fadeIn(100);
-				
-				$('#process_loading').html('');	
-				return false;
-				
-			});
+	else {
+		$('#process_loading').html(app.ui.loader);
+		JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getImageByID?key="' + _id + '"'], function (response) {
 			
+			var data = JSON.parse(response.result);
+			var document = data.rows[0].value;
 			
+			$('.imgBox' + _id).html('<a class="imgBox" href="' + document.image + '" target="_blank"><img src=' + document.image + ' width="75" /></a>');
+			$('.imgBox' + _id).fadeIn(100);
+			
+			$('#process_loading').html('');
+			return false;
+			
+		});
+		
 	}
-  
+	
+	
 });
-
-
-
-
-

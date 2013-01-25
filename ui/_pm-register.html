@@ -1,0 +1,314 @@
+<div class="pm-style-box">
+<p style="color: red">
+To get started, please choice organization or user.<br />
+organization is the most important aspect of access and getting secret code!
+</p>
+<a href="facebook-login"><img src="/facebook-login/FacebookRegisterButton.png" /></a><br/>
+<input type="button" id="btnClickOrganization" value="Register - Organization" />
+<p style="color: red">
+If you have already registered as a organisation please choose user button!
+<input type="button" id="btnClickUser" value="User" />
+</p>
+</div>
+<script type="text/javascript">
+    $(function() {
+	
+        $('#filter-box').hide();  
+        $('#MainFrame').hide();
+		
+		$('#btnClickOrganization').click (function () {
+			organizaionModalForm();
+		})
+		
+		$('#btnClickUser').click (function () {
+			userModalForm();
+		})
+		
+		
+		function organizaionModalForm()
+		{
+		  $.alert('Organization', '<p><img src="images/icon_first_step.png" /></p>'
+			+ '<div id="org_process_loading"></div>'
+			+ '<p>To get started, please provide your<br />'
+			+ 'organization name, email and choose a register.'
+			+ '<br />'
+			+ '</p>'
+			+ '<label for="orgName"> *Organization:</label>'
+			+ '<br />'
+			+ '<input type="text" class="dialog_input_text" id="orgName" />'
+			+ '<br />'
+			+ '<div id="availability_org" style="color:red"></div>'
+			+ '<label for="orgEmail">*Email:</label>'
+			+ '<br />'
+			+ '<input name="email" class="dialog_input_text" id="orgEmail" />'
+			+ '<br />'
+			+ '<input type="button" id="btnOrgRegister" value="Register" />	'	
+			+ '<br />'
+			+ '<span>'
+			+ 'We will send you an email to confirm your organization.<br/>'
+			+ 'after that you can go to step 2'
+			+ '</span>', false);
+			
+			init();
+			
+		}
+		
+		function userModalForm() {
+		
+			 $.alert('Organization', '<p><img src="images/icon_second_step.png" /></p>'
+				+ '<div id="user_process_loading"></div>' 
+				+ '<p style="padding: 5px;color: red;">Are you ready to be a part of PM Sys?</p><br />'
+				+ '<label for="username"> *Username:</label>'
+				+ '<br />'
+				+ '<input type="text" class="dialog_input_text" id="username" />'
+				+ '<br />'
+				+ '<div id="availability_user" style="color:red"></div>'
+				+ '<label for="useremail"> *Email:</label>'
+				+ '<br />'
+				+ '<input name="email" class="dialog_input_text" id="useremail" />'
+				+ '<br />'
+				+ '<label for="password_first"> *Password:</label>'
+				+ '<br />'
+				+ '<input type="password" class="dialog_input_text" id="password_first" />'
+				+ '<br />'
+				+ '<label for="password_second"> *Repeat password:</label>'
+				+ '<br />'
+				+ '<input type="password" class="dialog_input_text" id="password_second" />'
+				+ '<br />'
+				+ '<label for="status"> *Position:</label>'
+				+ '<br />'
+				+ '<select name="status" id="status">'
+				+ '<option value="0">-Select-</option>'
+				+ '<option value="1">Developer</option>'
+				+ '<option value="2">Administraor</option>		'
+				+ '</select>  '                                     
+				+ '<br/>'
+				+ '<label for="secret_code"> *Organization code:</label>'
+				+ '<br />'
+				+ '<input type="text" class="dialog_input_text" id="secret_code" >'
+				+ '<br />'
+				+ '<input type="button" id="btnRegister" value="Create my account" />'
+				+ '<a href="#pm-login" id="login">Sign in</a>'
+				+ '<div id="UserMessage"></div>', false);
+				
+				init();
+		
+		}
+		
+
+		function init() {
+
+			//check for org
+			$('#orgName').focusout(function() {
+
+				checkOrganization();
+
+			});
+
+			//check for user
+			$('#username').focusout(function() {
+
+				checkUserName();
+
+			});
+
+			function checkOrganization() {
+
+				if (($('#orgName').val().length <= 2) && ($('#orgName').val() != "")) {
+					$('#availability_org').html('The organization should have at least 3 characters.');
+					$('#btnOrgRegister').attr("disabled", "disabled");
+					return false;
+
+				}
+				
+				
+				if (!model.orgValidation($('#orgName').val())) {
+					$('#availability_org').html('Use a valid organization name.');
+					$('#btnOrgRegister').attr("disabled", "disabled");
+					return false;
+				}
+
+				JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewByOrgName?key="' + $('#orgName').val() + '"'], function(response) {
+
+					var data = JSON.parse(response.result);
+					var user = data.rows[0].value;
+
+					$('#availability_org').html('The organization <b>' + user.Organization + '</b> is already in use');
+					$('#btnOrgRegister').attr("disabled", "disabled");
+
+					return false;
+
+				});
+
+				$('#availability_org').html("");
+				$('#btnOrgRegister').removeAttr("disabled");
+
+			}
+
+			function checkUserName() {
+
+				if (($('#username').val().length <= 2) && ($('#username').val() != "")) {
+					$('#availability_user').html('The username should have at least 3 characters.');
+					$('#btnRegister').attr("disabled", "disabled");
+					return false;
+
+				}
+							
+				if (!model.userNameValidation($('#username').val())) {
+					$('#availability_user').html('Use a valid username.');
+					$('#btnRegister').attr("disabled", "disabled");
+					return false;
+				}
+				
+
+				JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'viewByName?key="' + $('#username').val() + '"'], function(response) {
+
+					var data = JSON.parse(response.result);
+					var user = data.rows[0].value;
+
+					$('#availability_user').html('The username <b>' + user.username + '</b> is already in use');
+					$('#btnRegister').attr("disabled", "disabled");
+
+					return false;
+
+				});
+
+				$('#availability_user').html("");
+				$('#btnRegister').removeAttr("disabled");
+
+			}     
+
+			// working with organization
+			$('#btnOrgRegister').click(function() {
+
+				if (checkOrganization() == false)
+					return false;
+
+				if (($('#orgEmail').val() == "") || ($('#orgName').val() == "")) {
+					$.alert('Warning', 'Both organization and email required!');
+					return false;
+				} else if (!model.emailValidation($('#orgEmail').val())) {
+					$.alert('Warning', 'Email address is not valid!');
+					return false;
+				}
+
+				var fromAddress = "pmsystem.mehmedov@gmail.com";
+				var toAddress = $('#orgEmail').val();
+				var subject = "PM Sys - confirm your organization!";
+
+				var organization = $('#orgName').val();
+				var SHA = SHA256(organization);
+
+				var body = '<html><body>Dear <b>'
+					+ organization + ' </b> , ' 
+					+ 'Thank You for registration! <br/>' 
+					+ 'We are thrilled you have chosen PM Sys to manage your organization. <br/>' 
+					+ '<br/>activate your organization: http://pmsys.org/?id=' 
+					+ SHA + '<br/>your secret code is: ' 
+					+ SHA + '<br/><br/><a href="pmsys.org">PMsys.org</a><br/>' 
+					+ '<br/>PM Sys administrator © 2012 </html></body>';
+
+				var params = [fromAddress, toAddress, subject, body, organization, toAddress, SHA, true];
+
+				$('#btnOrgRegister').attr("disabled", "disabled");
+				$('#org_process_loading').html(app.ui.working);
+				JsonBridge.execute('MailService.MailService', 'SendMail', params, function(response) {
+					$('#org_process_loading').html('');					
+					$.alert('Alert', response.result);
+				});
+
+			});
+
+			// working with users
+			$('#btnRegister').click(function() {
+
+				if (checkUserName() == false)
+					return false;
+
+				var user = new model.user();
+				user.username = $('#username').val();
+				user.password = $('#password_first').val();
+				user.email = $('#useremail').val();
+				user.position = $('#status').val();
+				user.positionAsText = $('#status option:selected').text();                        
+				user.secret_code = $('#secret_code').val();
+
+				if ((!user.username) || (!user.email) || (!user.password)) {
+					$.alert('Warning', 'all fields are required');
+					return false;
+				} else if (user.password != $('#password_second').val()) {
+					$.alert('Warning', 'your user account password is different!');
+					return false;
+				} else if (user.position <= 0) {
+					$.alert('Warning', 'Please select position!');
+					return false;
+				} else if (!model.emailValidation(user.email)) {
+					$.alert('Warning', 'Email address is not valid!');
+					return false;
+				} 
+									   
+				 else if (user.secret_code == "") {
+					$.alert('Warning', 'Enter secret code!');
+					return false;
+				} else
+					$('#UserMessage').hide();
+
+			    $('#user_process_loading').html(app.ui.working);
+				//check for valid secret code
+				JsonBridge.execute('WDK.API.CouchDb', 'getDesignViewAsJson', ['pmsystem', 'documents', 'getSecretCode?key="' + user.secret_code + '"'], function(response) {
+
+					var data = JSON.parse(response.result);
+
+					if (data.rows == "") {
+						$('#user_process_loading').html('');
+						$.alert('Warning', 'invalid secret code!');
+						return false;
+					}
+
+					var document = data.rows[0].value;
+
+					if ((document.SecretCode == user.secret_code)) {
+
+						 user.organization = document._id;
+						 user.organizationAsText = document.Organization;
+						//create new user account
+						JsonBridge.execute('WDK.API.CouchDb', 'createDocument', ['pmsystem', JSON.stringify(user)], function(data) {
+
+							$.cookie('user.Id', data.result.Id);
+							$.alert('access ', user.username + ' Welcome to PM Sys', true);
+
+						});
+
+						//send email to user
+						var fromAddress = "pmsystem.mehmedov@gmail.com";
+						var toAddress = user.email;
+						var subject = "administrator - welcome to PM Sys!";
+
+						var body = '<html><body>Dear <b>' 
+							+ user.username + ' </b> , ' 
+							+ 'Thank you <br/>' 
+							+ 'We are thrilled you have chosen PM Sys to manage your organization. <br/>' 
+							+ '<b>username:</b> ' 
+							+ user.username + '<br/><b>password: </b>' 
+							+ user.password + '<br/><br/><a href="pmsys.org">PMsys.org</a><br/>' 
+							+ '<br/>PM Sys administrator © 2012 </html></body>';
+
+						var params = [fromAddress, toAddress, subject, body, "", "", "", false];
+
+						JsonBridge.execute('MailService.MailService', 'SendMail', params, function(response) {
+							$('#user_process_loading').html('');
+						});
+
+					} else {
+						$('#user_process_loading').html('');
+						$.alert('Warning', 'Invalid secret code or organization!');
+						return false;
+					}
+
+				});
+
+			});
+		}
+
+    }); 
+</script>
