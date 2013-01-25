@@ -703,8 +703,7 @@ var system = {
 					if (loginResp.authResponse) {
 						getUserInfo();
 					} else {
-						alert('Please authorize this application to use it!');
-						location = "http://pmsys.nh.zonebg.com/"
+						alert('Please authorize this application to use it!');						
 					}
 				}, {
 					scope : 'email'

@@ -106,7 +106,6 @@
 			</div>	
 			
 			</div>
-									
 			
 			<!-- Page Header -->
 			<header id="MainHeader">
@@ -174,10 +173,17 @@
 							<img src="/social-icons/jquery_icon.png" />
 							<img src="/social-icons/dotNetIcon.png" />
 							<img src="/social-icons/Cloud-Icon.png" />							
-						</p>	
+						</p>
+
+						<p>
+							<div id="fb-root"></div>
+							<div class="fb-like" data-href="http://pmsystem.apphb.com" data-send="true" data-width="450" data-show-faces="true"></div>
+
+						</p>						
 					</div>	
+					
 				</div>
-				
+					
 				<section id="MainContent"> 			
 					<article>							
 						<div id="process_loading"></div>																	
@@ -280,6 +286,14 @@
 <html>
 
 
+<script>(function(d, s, id) {
+	
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=146964155459315";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <script type="text/javascript">
     $(function () {
